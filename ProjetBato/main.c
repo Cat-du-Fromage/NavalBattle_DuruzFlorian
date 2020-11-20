@@ -30,9 +30,52 @@ void Aide()
 void jeu()
 {
     int QuitGame = 0;
+
+    //DIMENSION DE LA GRILLE
+
+    //COLONNE
+    int Colonne = 10;
+    //Ligne
+    int Ligne = 15;
+
+    char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+
+    int grid[Colonne][Ligne];
+
+    //INITIALISER LE TABLEAU AVANT
+
     while (ModeEtat == 1)
     {
-        printf("Pressez 5 pour quitter:");
+        /*================================
+         * Affichage de la grille de Jeu
+         * Affichage de des zones de Contrôle (A-Z; 1-15)
+         *
+         ================================*/
+        for (int i = 0; i <= Colonne ; ++i)
+        {
+            for (int j = 0; j <= Ligne+1; ++j)
+            {
+                if (i == 0 && j == 0)
+                {
+
+                }
+                else if (i == 0)
+                {
+
+                    printf("%d", j);
+
+                }
+                else if (j == 0)
+                {
+                    //printf("%d", i);
+                    printf("%3c", Alphabet[i]);
+                }
+            }
+        }
+
+
+
+        printf("\nPressez 5 pour quitter:");
         scanf("%d", &QuitGame);
         if (QuitGame == 5)
         {
