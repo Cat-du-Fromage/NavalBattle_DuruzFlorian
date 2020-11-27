@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+#include <string.h>
+
 int ModeEtat = 0;
 
 /*=============================
@@ -21,63 +25,125 @@ void Aide()
     }
 }
 
-/*=============================
+/*=====================================================================================================
 
  * "JOUER"
  * Jeu de la bataille navale
 
- ============================*/
+ =======================================================================================================*/
+
+void InitGameGrid(int Ligne, int Colonne)
+{
+    //Init Ship Grid
+    char ShipGrid[Ligne][Colonne];
+
+    //Mettre le lien avec Le fichier TXT ICI
+
+
+    //placement des batos en dur pour la version 0.1
+    for (int i = 0; i < Ligne; ++i)
+    {
+        for (int j = 0; j < Colonne; ++j)
+        {
+
+        }
+    }
+}
+
+
 void jeu()
 {
-    int QuitGame = 0;
+    bool QuitGame = false;
 
     //DIMENSION DE LA GRILLE
-
-    //COLONNE
-    int Colonne = 10;
     //Ligne
-    int Ligne = 15;
+    int Ligne = 11;
+    //COLONNE
+    int Colonne = 11;
 
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
-    int grid[Colonne][Ligne];
+    //Player Grid View
+    int grid[Ligne][Colonne];
 
-    //INITIALISER LE TABLEAU AVANT
+    //Initiat ship palacement
 
     while (ModeEtat == 1)
     {
+
+        /* Initialize the multidimensional array */
+        //grid take a value according to the value of the vector
+        //0 =top left of the grid
+        //1 = A-z Value
+        //2 = top number value
+        //3 = Water Tile
+        int i = 0;
+        for(int a=0;a<Ligne;a++)
+        {
+            for(int b=0;b<Colonne;b++)
+            {
+                //grid[a][b] = i++;
+                if (a == 0 && b == 0)
+                {
+                    grid[a][b] = 0;
+                }
+                else if (a == 0)
+                {
+                    grid[a][b] = 1;
+
+                }
+                else if (b == 0)
+                {
+                    grid[a][b] = 2;
+
+                }
+                else
+                {
+                    grid[a][b] = 3;
+                }
+            }
+        }
         /*================================
          * Affichage de la grille de Jeu
          * Affichage de des zones de Contrôle (A-Z; 1-15)
          *
          ================================*/
-        for (int i = 0; i <= Colonne ; ++i)
+        for (int i = 0; i <Ligne ; ++i)
         {
-            for (int j = 0; j <= Ligne+1; ++j)
+            for (int j = 0; j <Colonne; ++j)
             {
-                if (i == 0 && j == 0)
+
+                if (grid[i][j] == 0)
                 {
+                    printf(" ");
 
                 }
-                else if (i == 0)
+                else if (grid[i][j] == 1)
                 {
-
-                    printf("%d", j);
+                    printf("%3d", j);
+                    //printf("%3c", Alphabet[i]);
 
                 }
-                else if (j == 0)
+                else if (grid[i][j] == 2)
                 {
-                    //printf("%d", i);
-                    printf("%3c", Alphabet[i]);
+                    printf("%c", Alphabet[i]);
+                    //printf("%d", j);
+
+                }
+                else
+                {
+                    int e = 0;
+                    printf("%3d", e);
                 }
             }
+            putchar('\n');
         }
 
-
+        printf("\nChoisissez la case à abattre:");
 
         printf("\nPressez 5 pour quitter:");
         scanf("%d", &QuitGame);
-        if (QuitGame == 5)
+        if (QuitGame == true)
         {
             ModeEtat = 0;
         }
@@ -88,18 +154,19 @@ void jeu()
 
 
 
-/*=============================
+/*=====================================================================================================
 
  * "Menu Principal"
  * Affiche Les différents choix possibles
  * Jouer
  * Aide du jeu
 
- ============================*/
+ =======================================================================================================*/
 
 
 void main()
 {
+    setbuf(stdout,0);
     printf("Hello, World!\n");
     /*===========================
 

@@ -9,4 +9,10 @@
 P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/main.c
 stdio.h
 -
+stdbool.h
+-
+math.h
+-
+string.h
+-
 
