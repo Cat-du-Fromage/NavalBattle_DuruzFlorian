@@ -26,16 +26,69 @@ void Aide()
 }
 
 /*=====================================================================================================
-
+ * VERSION 0.1
  * "JOUER"
- * Jeu de la bataille navale
+ * Ships placement define by variables
+ * Grid manager
+ *
 
  =======================================================================================================*/
+void UpdateGrid(int ligne, int colonne,int *grid[ligne][colonne])
+{
+    char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
-void InitGameGrid(int Ligne, int Colonne)
+    for (int i = 0; i <ligne ; ++i)
+    {
+        for (int j = 0; j <colonne; ++j)
+        {
+
+            if (grid[i][j] == 0)
+            {
+                printf(" ");
+
+            }
+            else if (grid[i][j] == 1)
+            {
+                printf("%3d", j);
+                //printf("%3c", Alphabet[i]);
+
+            }
+            else if (grid[i][j] == 2)
+            {
+                printf("%c", Alphabet[i]);
+                //printf("%d", j);
+
+            }
+            else if (grid[i][j] == 4)
+            {
+                char r = 'x';
+                printf("%3c", r);
+
+            }
+            else
+            {
+                int e = 0;
+                printf("%3d", e);
+            }
+        }
+        putchar('\n');
+    }
+}
+
+
+bool InitGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
 {
     //Init Ship Grid
     char ShipGrid[Ligne][Colonne];
+
+    //Porte avion
+    char PShip = "p";
+    ShipGrid[1][1] = PShip;
+    ShipGrid[1][2] = PShip;
+    ShipGrid[1][3] = PShip;
+    ShipGrid[1][4] = PShip;
+    ShipGrid[1][5] = PShip;
+
 
     //Mettre le lien avec Le fichier TXT ICI
 
@@ -45,11 +98,26 @@ void InitGameGrid(int Ligne, int Colonne)
     {
         for (int j = 0; j < Colonne; ++j)
         {
-
+            if (ShipGrid[shotLigne][shotColonne] == PShip)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
 
+/*=====================================================================================================
+
+ * "PLAY"
+ * Ships placement define by variables
+ * Grid manager
+ *
+
+ =======================================================================================================*/
 
 void jeu()
 {
@@ -63,6 +131,8 @@ void jeu()
 
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
+    char choiceAlpha = "z";
+    int choiceNum = 0;
     //Player Grid View
     int grid[Ligne][Colonne];
 
@@ -77,6 +147,7 @@ void jeu()
         //1 = A-z Value
         //2 = top number value
         //3 = Water Tile
+        //4 = TOUCHE
         int i = 0;
         for(int a=0;a<Ligne;a++)
         {
@@ -130,6 +201,13 @@ void jeu()
                     //printf("%d", j);
 
                 }
+                else if (grid[i][j] == 4)
+                {
+                    char r = "x";
+                    printf("%3c", r);
+                    //printf("%d", j);
+
+                }
                 else
                 {
                     int e = 0;
@@ -139,9 +217,34 @@ void jeu()
             putchar('\n');
         }
 
-        printf("\nChoisissez la case à abattre:");
+        //printf("\nChoisissez la case a abattre:");
+        scanf("%c%d", &choiceAlpha, &choiceNum);
+        if (choiceAlpha != "z" && choiceNum != 0)
+        {
+            for (int j = 0; j < Ligne; ++j)
+            {
+                int shotligne = 0;
+                if (Alphabet[j] == choiceAlpha)
+                {
+                    shotligne = j;
+                    if (InitGameGrid(Ligne, Colonne, shotligne,choiceNum) == true)
+                    {
+                        printf("\nTOUCHE!\n");
+                        //Search for the line corresponding to the letter choose by the player
+                        grid[j][choiceNum] = 4;
+                        UpdateGrid(Ligne, Colonne, grid);
 
+                    }
+                    else
+                    {
+                        printf("\nRATE!");
+                    }
+                }
+            }
+        }
+        printf("\nChoisissez la case a abattre:");
         printf("\nPressez 5 pour quitter:");
+        putchar('\n');
         scanf("%d", &QuitGame);
         if (QuitGame == true)
         {
