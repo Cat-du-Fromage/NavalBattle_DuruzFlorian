@@ -1,16 +1,31 @@
+/**
+ * @file      ProjetBato.c
+ * @author    <Florian Duruz>
+ * @version   <0.1>
+ * @date      <18-12-2020>
+ * @brief     <this is "le Projet Bato" a naval battle>
+ *
+ * @details    <More complete description>
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
+
 
 int ModeEtat = 0;
 
-/*=============================
 
- * "AIDE DU JEU"
- * Affiche l'aide du jeu
-
- ============================*/
+//======================================================================================================
+/**
+ *
+ *@brief Aide, display the rules of the game and how we play it
+ *@return Void
+ *
+ */
+//======================================================================================================
 void Aide()
 {
     int QuitAide = 0;
@@ -25,15 +40,16 @@ void Aide()
     }
 }
 
-/*=====================================================================================================
- * VERSION 0.1
- * "JOUER"
- * Ships placement define by variables
- * Grid manager
- *
-
- =======================================================================================================*/
-void UpdateGrid(int ligne, int colonne,int *grid[ligne][colonne])
+//=====================================================================================================
+ /**
+  * @brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
+  * @param ligne - ligne in the game grid
+  * @param colonne - row in the game grid
+  * @param grid
+  * @return void
+  */
+//=====================================================================================================
+void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
 {
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
@@ -75,8 +91,18 @@ void UpdateGrid(int ligne, int colonne,int *grid[ligne][colonne])
     }
 }
 
+//=====================================================================================================
+/**
+ * @brief initGameGrid - Return if the shot land on a ship or not
+ * @param Ligne - Line of the game Grid
+ * @param Colonne - Row of the Game Grid
+ * @param shotLigne - Ligne selected by the player
+ * @param shotColonne - Row Selected by the player
+ * @return bool - true if a ship is hit
+ */
+//=====================================================================================================
 
-bool InitGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
+bool initGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
 {
     //Init Ship Grid
     char ShipGrid[Ligne][Colonne];
@@ -88,9 +114,6 @@ bool InitGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
     ShipGrid[1][3] = PShip;
     ShipGrid[1][4] = PShip;
     ShipGrid[1][5] = PShip;
-
-
-    //Mettre le lien avec Le fichier TXT ICI
 
 
     //placement des batos en dur pour la version 0.1
@@ -110,24 +133,22 @@ bool InitGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
     }
 }
 
-/*=====================================================================================================
 
- * "PLAY"
- * Ships placement define by variables
- * Grid manager
- *
-
- =======================================================================================================*/
-
+//=====================================================================================================
+/**
+ * @brief jeu - "Main" play function,
+ * @return void
+ */
+//=====================================================================================================
 void jeu()
 {
     bool QuitGame = false;
 
     //DIMENSION DE LA GRILLE
     //Ligne
-    int Ligne = 11;
+    int Ligne = 10;
     //COLONNE
-    int Colonne = 11;
+    int Colonne = 10;
 
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
@@ -136,49 +157,51 @@ void jeu()
     //Player Grid View
     int grid[Ligne][Colonne];
 
-    //Initiat ship palacement
+    for(int a=0;a<Ligne;a++)
+    {
+        for(int b=0;b<Colonne;b++)
+        {
+            //grid[a][b] = i++;
+            if (a == 0 && b == 0)
+            {
+                grid[a][b] = 0;
+            }
+            else if (a == 0)
+            {
+                grid[a][b] = 1;
+
+            }
+            else if (b == 0)
+            {
+                grid[a][b] = 2;
+
+            }
+            else
+            {
+                grid[a][b] = 3;
+            }
+        }
+
+    }
 
     while (ModeEtat == 1)
     {
-
-        /* Initialize the multidimensional array */
-        //grid take a value according to the value of the vector
-        //0 =top left of the grid
-        //1 = A-z Value
-        //2 = top number value
-        //3 = Water Tile
-        //4 = TOUCHE
+        /*
+         * grid take a value according to the value of the vector
+         * 0 =top left of the grid
+         * 1 = A-Z controler Value
+         * 2 = TOP controler number value
+         * 3 = Water Tile
+         * 4 = HIT
+         */
         int i = 0;
-        for(int a=0;a<Ligne;a++)
-        {
-            for(int b=0;b<Colonne;b++)
-            {
-                //grid[a][b] = i++;
-                if (a == 0 && b == 0)
-                {
-                    grid[a][b] = 0;
-                }
-                else if (a == 0)
-                {
-                    grid[a][b] = 1;
 
-                }
-                else if (b == 0)
-                {
-                    grid[a][b] = 2;
-
-                }
-                else
-                {
-                    grid[a][b] = 3;
-                }
-            }
-        }
-        /*================================
-         * Affichage de la grille de Jeu
-         * Affichage de des zones de Contrôle (A-Z; 1-15)
+        /*================================================
          *
-         ================================*/
+         * Display the game grid
+         * Display the selector controler part of the grid (A-Z; 1-15)
+         *
+         ================================================*/
         for (int i = 0; i <Ligne ; ++i)
         {
             for (int j = 0; j <Colonne; ++j)
@@ -227,12 +250,12 @@ void jeu()
                 if (Alphabet[j] == choiceAlpha)
                 {
                     shotligne = j;
-                    if (InitGameGrid(Ligne, Colonne, shotligne,choiceNum) == true)
+                    if (initGameGrid(Ligne, Colonne, shotligne, choiceNum) == true)
                     {
                         printf("\nTOUCHE!\n");
                         //Search for the line corresponding to the letter choose by the player
                         grid[j][choiceNum] = 4;
-                        UpdateGrid(Ligne, Colonne, grid);
+                        updateGrid(Ligne, Colonne, grid);
 
                     }
                     else
@@ -253,20 +276,12 @@ void jeu()
     }
 }
 
-
-
-
-
-/*=====================================================================================================
-
- * "Menu Principal"
- * Affiche Les différents choix possibles
- * Jouer
- * Aide du jeu
-
- =======================================================================================================*/
-
-
+//=====================================================================================================
+/**
+ * @brief main - Main menu, State machine system
+ * @return void
+ */
+//=====================================================================================================
 void main()
 {
     setbuf(stdout,0);
@@ -296,19 +311,19 @@ void main()
         switch (ChoixMenu)
         {
             case 0:
-                ModeEtat = 0;
-                break;
-            case 1: //Mode "JOUER"
-                ModeEtat = 1;
-                jeu();
-                break;
-            case 2://Mode "AIDE DU JEU"
-                ModeEtat = 2;
-                Aide();
-                break;
-            default:
-                ModeEtat = 0;
-                break;
+            ModeEtat = 0;
+            break;
+            case 1: //Mode "Play"
+            ModeEtat = 1;
+            jeu();
+            break;
+            case 2://Mode "Help"
+            ModeEtat = 2;
+            Aide();
+            break;
+            default:// mode "Main Menu
+            ModeEtat = 0;
+            break;
         }
 
 

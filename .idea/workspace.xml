@@ -41,11 +41,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -62,7 +57,8 @@
       <updated>1605797998546</updated>
       <workItem from="1605797999899" duration="97000" />
       <workItem from="1606398278431" duration="245000" />
-      <workItem from="1606808874208" duration="2368000" />
+      <workItem from="1606808874208" duration="3367000" />
+      <workItem from="1606982326352" duration="9906000" />
     </task>
     <servers />
   </component>
@@ -74,21 +70,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="263" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606810007516" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1606811182784">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1607004556827">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606811182784" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1606811182784">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607004556827" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1607004556827">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606811182784" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1606811182783">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607004556827" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1607004556826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606811182783" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1606811182784">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607004556826" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1607004556827">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606811182784" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607004556827" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607001910971">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607001910971" />
   </component>
 </project>
