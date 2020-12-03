@@ -83,8 +83,8 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
             }
             else
             {
-                int e = 0;
-                printf("%3d", e);
+                char e = '~';
+                printf("%3c", e);
             }
         }
         putchar('\n');
@@ -123,10 +123,12 @@ bool initGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
         {
             if (ShipGrid[shotLigne][shotColonne] == PShip)
             {
+                printf("\nHit!\n");
                 return true;
             }
             else
             {
+                printf("\nMiss!\n");
                 return false;
             }
         }
@@ -145,21 +147,21 @@ void jeu()
     bool QuitGame = false;
 
     //DIMENSION DE LA GRILLE
-    //Ligne
-    int Ligne = 10;
+    //ligne
+    int ligne = 11;
     //COLONNE
-    int Colonne = 10;
+    int colonne = 11;
 
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
     char choiceAlpha = "z";
     int choiceNum = 0;
     //Player Grid View
-    int grid[Ligne][Colonne];
+    int grid[ligne][colonne];
 
-    for(int a=0;a<Ligne;a++)
+    for(int a=0; a < ligne; a++)
     {
-        for(int b=0;b<Colonne;b++)
+        for(int b=0; b < colonne; b++)
         {
             //grid[a][b] = i++;
             if (a == 0 && b == 0)
@@ -183,6 +185,10 @@ void jeu()
         }
 
     }
+    updateGrid(ligne, colonne, grid);
+    printf("\nChoisissez la case a abattre:\n");
+    printf("\nPressez 5 pour quitter:\n");
+    putchar('\n');
 
     while (ModeEtat == 1)
     {
@@ -202,9 +208,10 @@ void jeu()
          * Display the selector controler part of the grid (A-Z; 1-15)
          *
          ================================================*/
-        for (int i = 0; i <Ligne ; ++i)
+        /*
+        for (int i = 0; i < ligne ; ++i)
         {
-            for (int j = 0; j <Colonne; ++j)
+            for (int j = 0; j < colonne; ++j)
             {
 
                 if (grid[i][j] == 0)
@@ -239,36 +246,42 @@ void jeu()
             }
             putchar('\n');
         }
-
-        //printf("\nChoisissez la case a abattre:");
+        */
         scanf("%c%d", &choiceAlpha, &choiceNum);
-        if (choiceAlpha != "z" && choiceNum != 0)
+        if(choiceNum > 0 && choiceNum < 11)
         {
-            for (int j = 0; j < Ligne; ++j)
+            if (choiceAlpha != "z" && choiceNum != 0)
             {
-                int shotligne = 0;
-                if (Alphabet[j] == choiceAlpha)
+                for (int j = 0; j < ligne; ++j)
                 {
-                    shotligne = j;
-                    if (initGameGrid(Ligne, Colonne, shotligne, choiceNum) == true)
+                    int shotLigne = 0;
+                    if (Alphabet[j] == choiceAlpha)
                     {
-                        printf("\nTOUCHE!\n");
-                        //Search for the line corresponding to the letter choose by the player
-                        grid[j][choiceNum] = 4;
-                        updateGrid(Ligne, Colonne, grid);
-
-                    }
-                    else
-                    {
-                        printf("\nRATE!");
+                        shotLigne = j;
+                        if (initGameGrid(ligne, colonne, shotLigne, choiceNum) == true)
+                        {
+                            //printf("\nHit!\n");
+                            //Search for the line corresponding to the letter choose by the player
+                            grid[j][choiceNum] = 4;
+                            updateGrid(ligne, colonne, grid);
+                            printf("\nChoisissez la case a abattre:\n");
+                            printf("\nPressez 5 pour quitter:\n");
+                            putchar('\n');
+                        }
+                        else
+                        {
+                            //printf("\nMiss!");
+                        }
                     }
                 }
             }
         }
-        printf("\nChoisissez la case a abattre:");
-        printf("\nPressez 5 pour quitter:");
-        putchar('\n');
+        //printf("\nChoisissez la case a abattre:");
+        //printf("\nPressez 5 pour quitter:");
+        //putchar('\n');
         scanf("%d", &QuitGame);
+
+        //Return to main menu
         if (QuitGame == true)
         {
             ModeEtat = 0;
@@ -288,15 +301,15 @@ void main()
     printf("Hello, World!\n");
     /*===========================
 
-    * Machine d'états
-    * Switch case pour la navigation entre les différents modes
-    * 0/Default : On entre dans le Mode "Menu Principal"; voir fonction MenuPrincipal()
-    * 1         : On entre dans le Mode "Jouer"; voir fonction Jeu()
-    * 2         : Mode "Aide de Jeu"; voir fonction Aide()
+    * State Machine
+    * States:
+    * 0/Default : Main Menu - function main()
+    * 1         : Play - function jeu()
+    * 2         : Help menu - function Aide()
 
     ===========================*/
 
-    int ChoixMenu = 0;
+    int choixMenu = 0;
 
     while (ModeEtat == 0)
     {
@@ -306,9 +319,9 @@ void main()
         printf("\n5 : QUITTER");
         printf("\nChoisissez le mode voulu parmis en entrant le chiffre correspondant ci-dessus.");
         printf("\nVotre Choix:");
-        scanf("%d", &ChoixMenu);
+        scanf("%d", &choixMenu);
 
-        switch (ChoixMenu)
+        switch (choixMenu)
         {
             case 0:
             ModeEtat = 0;
