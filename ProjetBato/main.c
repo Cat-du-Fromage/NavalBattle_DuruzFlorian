@@ -77,6 +77,7 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
     int number = 1;
     int letter = 2;
     int hit = 4;
+    int sink = 5;
 
     for (int i = 0; i <ligne ; ++i)
     {
@@ -100,6 +101,11 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
                 char hitMark = 'x';
                 printf("%3c", hitMark);
             }
+            else if (grid[i][j] == sink)
+            {
+                char sinkMark = 'c';
+                printf("%3c", sinkMark);
+            }
             else
             {
                 char water = '~';
@@ -120,18 +126,13 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
  * @return bool - true if a ship is hit
  */
 //=====================================================================================================
-bool sinkShip()
-{
 
-}
-
-
-
+/*
 bool initGameGrid(int optionVerification ,int Ligne, int Colonne, int shotLigne, int shotColonne, ...)
 {
     //Init Ship Grid
     char ShipGrid[Ligne][Colonne];
-    /*     A  B  C  D  E  F  G  H  I  J
+        A  B  C  D  E  F  G  H  I  J
      *
      * 1   p  p  p  p  p  -  -  -  -  -
      * 2   -  -  -  -  -  -  -  -  -  -
@@ -143,7 +144,7 @@ bool initGameGrid(int optionVerification ,int Ligne, int Colonne, int shotLigne,
      * 8   -  s  -  -  -  t  -  -  -  -
      * 9   -  -  -  -  -  t  -  -  -  -
      * 10  -  -  -  -  -  -  -  -  -  -
-     */
+
 
     //Porte avion
     char pShip = "p";
@@ -178,7 +179,7 @@ bool initGameGrid(int optionVerification ,int Ligne, int Colonne, int shotLigne,
 
 
 }
-
+*/
 
 //=====================================================================================================
 /**
@@ -206,14 +207,42 @@ void jeu()
     //=================================================================
     //Init Ship Grid
     char ShipGrid[ligne][colonne];
-
-    char pShip = "p";
+/*
+        A  B  C  D  E  F  G  H  I  J
+*
+*   1   p  p  p  p  p  -  -  -  -  -
+*   2   -  -  -  -  -  -  -  -  -  -
+*   3   -  -  -  -  -  -  -  c  -  -
+*   4   -  -  -  s  s  s  -  c  -  -
+*   5   -  -  -  -  -  -  -  c  -  -
+*   6   -  s  -  -  -  -  -  c  -  -
+*   7   -  s  -  -  -  -  -  -  -  -
+*   8   -  s  -  -  -  t  -  -  -  -
+*   9   -  -  -  -  -  t  -  -  -  -
+*   10  -  -  -  -  -  -  -  -  -  -
+    */
+    int pShip = 1;
     ShipGrid[1][1] = pShip;
     ShipGrid[1][2] = pShip;
     ShipGrid[1][3] = pShip;
     ShipGrid[1][4] = pShip;
     ShipGrid[1][5] = pShip;
 
+    int cShip = 2;
+    ShipGrid[3][8] = cShip;
+    ShipGrid[4][8] = cShip;
+    ShipGrid[5][8] = cShip;
+
+    for (int i = 0; i < ligne; ++i)
+    {
+        for (int j = 0; j < colonne; ++j)
+        {
+            if (ShipGrid[i][j] != pShip && ShipGrid[i][j] != cShip)
+            {
+                ShipGrid[i][j] = 0;
+            }
+        }
+    }
     //=================================================================
 
     for(int a=0; a < ligne; a++)
@@ -282,14 +311,31 @@ void jeu()
                     if (Alphabet[j] == choiceAlpha)
                     {
                         shotLigne = j;
-                        if (initGameGrid(1, ligne, colonne, shotLigne, choiceNum) == true)
+                        if (ShipGrid[j][choiceNum] != 0)
+                        //if (initGameGrid(1, ligne, colonne, shotLigne, choiceNum) == true)
                         {
+                            printf("\n%d\n", ShipGrid[shotLigne][choiceNum]);
                             grid[j][choiceNum] = 4;
+                            if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
+                            {
+                                grid[1][1] = 5;
+                                grid[1][2] = 5;
+                                grid[1][3] = 5;
+                                grid[1][4] = 5;
+                                grid[1][5] = 5;
+                            }
+
+                            else if (grid[3][8] == 4 && grid[4][8] == 4 && grid[5][8] == 4)
+                            {
+                                grid[3][8] = 5;
+                                grid[4][8] = 5;
+                                grid[5][8] = 5;
+                            }
+
+
 
                             //Search for the line corresponding to the letter choose by the player
-                            //grid[j][choiceNum] = 4;
                             updateGrid(ligne, colonne, grid);
-                            //printf("\nHit!");
                             printf("\nChoisissez la case a abattre:");
                             printf("\nPressez 5 pour quitter:\n");
                             putchar('\n');
@@ -297,7 +343,7 @@ void jeu()
                         }
                         else
                         {
-                            //printf("\nMiss!");
+                            printf("\nMiss!");
                         }
                     }
                 }
