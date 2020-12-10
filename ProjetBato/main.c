@@ -15,8 +15,16 @@
 #include <stdlib.h>
 
 
-int ModeEtat = 0;
+int modeEtat = 0;
 
+void emptyBuffer()
+{
+    int c = 0;
+    while (c != '\n' && c != EOF)
+    {
+        c = getchar();
+    }
+}
 
 //======================================================================================================
 /**
@@ -28,16 +36,28 @@ int ModeEtat = 0;
 //======================================================================================================
 void Aide()
 {
-    int QuitAide = 0;
-    while (ModeEtat == 2)
+    char quitAide = 'z';
+
+    //Text ICI
+
+
+
+    while (modeEtat == 2 && quitAide != 'q')
     {
-        printf("Pressez 5 pour quitter:");
-        scanf("%d", &QuitAide);
-        if (QuitAide == 5)
+        printf("\nPressez <q> pour quitter:");
+        scanf("%c", &quitAide);
+        if (quitAide == 'q')
         {
-            ModeEtat = 0;
+            modeEtat = 0;
         }
+        /*
+        else if (quitAide == 0)
+        {
+            emptyBuffer();
+        }
+         */
     }
+    modeEtat = 0;
 }
 
 //=====================================================================================================
@@ -53,38 +73,37 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
 {
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
+    int vide = 0;
+    int number = 1;
+    int letter = 2;
+    int hit = 4;
+
     for (int i = 0; i <ligne ; ++i)
     {
         for (int j = 0; j <colonne; ++j)
         {
 
-            if (grid[i][j] == 0)
+            if (grid[i][j] == vide)
             {
                 printf(" ");
-
             }
-            else if (grid[i][j] == 1)
+            else if (grid[i][j] == number)
             {
                 printf("%3d", j);
-                //printf("%3c", Alphabet[i]);
-
             }
-            else if (grid[i][j] == 2)
+            else if (grid[i][j] == letter)
             {
                 printf("%c", Alphabet[i]);
-                //printf("%d", j);
-
             }
-            else if (grid[i][j] == 4)
+            else if (grid[i][j] == hit)
             {
-                char r = 'x';
-                printf("%3c", r);
-
+                char hitMark = 'x';
+                printf("%3c", hitMark);
             }
             else
             {
-                char e = '~';
-                printf("%3c", e);
+                char water = '~';
+                printf("%3c", water);
             }
         }
         putchar('\n');
@@ -101,38 +120,63 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
  * @return bool - true if a ship is hit
  */
 //=====================================================================================================
+bool sinkShip()
+{
 
-bool initGameGrid(int Ligne, int Colonne, int shotLigne, int shotColonne)
+}
+
+
+
+bool initGameGrid(int optionVerification ,int Ligne, int Colonne, int shotLigne, int shotColonne, ...)
 {
     //Init Ship Grid
     char ShipGrid[Ligne][Colonne];
+    /*     A  B  C  D  E  F  G  H  I  J
+     *
+     * 1   p  p  p  p  p  -  -  -  -  -
+     * 2   -  -  -  -  -  -  -  -  -  -
+     * 3   -  -  -  -  -  -  -  c  -  -
+     * 4   -  -  -  s  s  s  -  c  -  -
+     * 5   -  -  -  -  -  -  -  c  -  -
+     * 6   -  s  -  -  -  -  -  c  -  -
+     * 7   -  s  -  -  -  -  -  -  -  -
+     * 8   -  s  -  -  -  t  -  -  -  -
+     * 9   -  -  -  -  -  t  -  -  -  -
+     * 10  -  -  -  -  -  -  -  -  -  -
+     */
 
     //Porte avion
-    char PShip = "p";
-    ShipGrid[1][1] = PShip;
-    ShipGrid[1][2] = PShip;
-    ShipGrid[1][3] = PShip;
-    ShipGrid[1][4] = PShip;
-    ShipGrid[1][5] = PShip;
+    char pShip = "p";
+    ShipGrid[1][1] = pShip;
+    ShipGrid[1][2] = pShip;
+    ShipGrid[1][3] = pShip;
+    ShipGrid[1][4] = pShip;
+    ShipGrid[1][5] = pShip;
 
+    char cShip = "c";
 
-    //placement des batos en dur pour la version 0.1
-    for (int i = 0; i < Ligne; ++i)
+    if (optionVerification == 1)
     {
-        for (int j = 0; j < Colonne; ++j)
+        for (int i = 0; i < Ligne; ++i)
         {
-            if (ShipGrid[shotLigne][shotColonne] == PShip)
+            for (int j = 0; j < Colonne; ++j)
             {
-                printf("\nHit!\n");
-                return true;
-            }
-            else
-            {
-                printf("\nMiss!\n");
-                return false;
+                if (ShipGrid[shotLigne][shotColonne] == pShip)
+                {
+                    printf("\nHit!\n");
+                    return true;
+                }
+                else
+                {
+                    printf("\nMiss!\n");
+                    return false;
+                }
             }
         }
     }
+
+
+
 }
 
 
@@ -158,6 +202,19 @@ void jeu()
     int choiceNum = 0;
     //Player Grid View
     int grid[ligne][colonne];
+
+    //=================================================================
+    //Init Ship Grid
+    char ShipGrid[ligne][colonne];
+
+    char pShip = "p";
+    ShipGrid[1][1] = pShip;
+    ShipGrid[1][2] = pShip;
+    ShipGrid[1][3] = pShip;
+    ShipGrid[1][4] = pShip;
+    ShipGrid[1][5] = pShip;
+
+    //=================================================================
 
     for(int a=0; a < ligne; a++)
     {
@@ -190,7 +247,7 @@ void jeu()
     printf("\nPressez 5 pour quitter:\n");
     putchar('\n');
 
-    while (ModeEtat == 1)
+    while (modeEtat == 1)
     {
         /*
          * grid take a value according to the value of the vector
@@ -208,46 +265,13 @@ void jeu()
          * Display the selector controler part of the grid (A-Z; 1-15)
          *
          ================================================*/
-        /*
-        for (int i = 0; i < ligne ; ++i)
-        {
-            for (int j = 0; j < colonne; ++j)
-            {
 
-                if (grid[i][j] == 0)
-                {
-                    printf(" ");
-
-                }
-                else if (grid[i][j] == 1)
-                {
-                    printf("%3d", j);
-                    //printf("%3c", Alphabet[i]);
-
-                }
-                else if (grid[i][j] == 2)
-                {
-                    printf("%c", Alphabet[i]);
-                    //printf("%d", j);
-
-                }
-                else if (grid[i][j] == 4)
-                {
-                    char r = "x";
-                    printf("%3c", r);
-                    //printf("%d", j);
-
-                }
-                else
-                {
-                    int e = 0;
-                    printf("%3d", e);
-                }
-            }
-            putchar('\n');
-        }
-        */
         scanf("%c%d", &choiceAlpha, &choiceNum);
+        if (choiceAlpha == 'q')
+        {
+            modeEtat = 0;
+        }
+
         if(choiceNum > 0 && choiceNum < 11)
         {
             if (choiceAlpha != "z" && choiceNum != 0)
@@ -258,15 +282,18 @@ void jeu()
                     if (Alphabet[j] == choiceAlpha)
                     {
                         shotLigne = j;
-                        if (initGameGrid(ligne, colonne, shotLigne, choiceNum) == true)
+                        if (initGameGrid(1, ligne, colonne, shotLigne, choiceNum) == true)
                         {
-                            //printf("\nHit!\n");
-                            //Search for the line corresponding to the letter choose by the player
                             grid[j][choiceNum] = 4;
+
+                            //Search for the line corresponding to the letter choose by the player
+                            //grid[j][choiceNum] = 4;
                             updateGrid(ligne, colonne, grid);
-                            printf("\nChoisissez la case a abattre:\n");
+                            //printf("\nHit!");
+                            printf("\nChoisissez la case a abattre:");
                             printf("\nPressez 5 pour quitter:\n");
                             putchar('\n');
+
                         }
                         else
                         {
@@ -275,17 +302,22 @@ void jeu()
                     }
                 }
             }
+            else
+            {
+                printf("\nCase impossible SALE MERDE!:\n");
+                printf("\nChoisissez la case a abattre:\n");
+                printf("\nPressez 5 pour quitter:\n");
+            }
         }
-        //printf("\nChoisissez la case a abattre:");
-        //printf("\nPressez 5 pour quitter:");
-        //putchar('\n');
-        scanf("%d", &QuitGame);
+        //scanf("%d", &QuitGame);
 
         //Return to main menu
+        /*
         if (QuitGame == true)
         {
-            ModeEtat = 0;
+            modeEtat = 0;
         }
+         */
     }
 }
 
@@ -298,7 +330,6 @@ void jeu()
 void main()
 {
     setbuf(stdout,0);
-    printf("Hello, World!\n");
     /*===========================
 
     * State Machine
@@ -308,37 +339,44 @@ void main()
     * 2         : Help menu - function Aide()
 
     ===========================*/
-
     int choixMenu = 0;
 
-    while (ModeEtat == 0)
+    while (modeEtat == 0 && choixMenu == 0)
     {
+        choixMenu = 0;
         printf("\nBienvenu dans La bataille Navale");
         printf("\n1 : JOUER");
         printf("\n2 : AIDE DU JEU");
         printf("\n5 : QUITTER");
         printf("\nChoisissez le mode voulu parmis en entrant le chiffre correspondant ci-dessus.");
         printf("\nVotre Choix:");
-        scanf("%d", &choixMenu);
-
+        int res = scanf("%d", &choixMenu);
+        if (res == 0)
+        {
+            emptyBuffer();
+        }
+        //scanf("%d", &choixMenu);
         switch (choixMenu)
         {
             case 0:
-            ModeEtat = 0;
-            break;
+                modeEtat = 0;
+                choixMenu = 0;
+                break;
             case 1: //Mode "Play"
-            ModeEtat = 1;
-            jeu();
-            break;
+                modeEtat = 1;
+                jeu();
+                choixMenu = 0;
+                break;
             case 2://Mode "Help"
-            ModeEtat = 2;
-            Aide();
-            break;
+                modeEtat = 2;
+                Aide();
+                choixMenu = 0;
+                break;
             default:// mode "Main Menu
-            ModeEtat = 0;
-            break;
+                modeEtat = 0;
+                choixMenu = 0;
+                break;
         }
-
 
     }
 
