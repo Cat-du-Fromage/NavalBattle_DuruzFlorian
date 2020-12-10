@@ -78,6 +78,7 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
     int letter = 2;
     int hit = 4;
     int sink = 5;
+    int miss = 6;
 
     for (int i = 0; i <ligne ; ++i)
     {
@@ -105,6 +106,11 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
             {
                 char sinkMark = 'c';
                 printf("%3c", sinkMark);
+            }
+            else if (grid[i][j] == miss)
+            {
+                char missMark = '0';
+                printf("%3c", missMark);
             }
             else
             {
@@ -206,20 +212,20 @@ void jeu()
 
     //=================================================================
     //Init Ship Grid
-    char ShipGrid[ligne][colonne];
+    int ShipGrid[ligne][colonne];
 /*
-        A  B  C  D  E  F  G  H  I  J
+           1  2  3  4  5  6  7  8  9  10
 *
-*   1   p  p  p  p  p  -  -  -  -  -
-*   2   -  -  -  -  -  -  -  -  -  -
-*   3   -  -  -  -  -  -  -  c  -  -
-*   4   -  -  -  s  s  s  -  c  -  -
-*   5   -  -  -  -  -  -  -  c  -  -
-*   6   -  s  -  -  -  -  -  c  -  -
-*   7   -  s  -  -  -  -  -  -  -  -
-*   8   -  s  -  -  -  t  -  -  -  -
-*   9   -  -  -  -  -  t  -  -  -  -
-*   10  -  -  -  -  -  -  -  -  -  -
+*   a(1)   p  p  p  p  p  -  -  -  -  -
+*   b(2)   -  -  -  -  -  -  -  -  -  -
+*   c(3)   -  -  -  -  -  -  -  c  -  -
+*   d(4)   -  -  -  s  s  s  -  c  -  -
+*   e(5)   -  -  -  -  -  -  -  c  -  -
+*   f(6)   -  s  -  -  -  -  -  c  -  -
+*   g(7)   -  s  -  -  -  -  -  -  -  -
+*   h(8)   -  s  -  -  -  t  -  -  -  -
+*   i(9)   -  -  -  -  -  t  -  -  -  -
+*   j(10)  -  -  -  -  -  -  -  -  -  -
     */
     int pShip = 1;
     ShipGrid[1][1] = pShip;
@@ -233,13 +239,18 @@ void jeu()
     ShipGrid[4][8] = cShip;
     ShipGrid[5][8] = cShip;
 
-    for (int i = 0; i < ligne; ++i)
+    int tShip = 3;
+    ShipGrid[8][6] = tShip;
+    ShipGrid[9][6] = tShip;
+
+    for (int i = 0; i <= ligne; ++i)
     {
-        for (int j = 0; j < colonne; ++j)
+        for (int j = 0; j <= colonne; ++j)
         {
-            if (ShipGrid[i][j] != pShip && ShipGrid[i][j] != cShip)
+            if (ShipGrid[i][j] != pShip && ShipGrid[i][j] != cShip && ShipGrid[i][j] != tShip)
             {
                 ShipGrid[i][j] = 0;
+                //printf("\n%d\n", ShipGrid[2][10]);
             }
         }
     }
@@ -286,7 +297,6 @@ void jeu()
          * 3 = Water Tile
          * 4 = HIT
          */
-        int i = 0;
 
         /*================================================
          *
@@ -296,6 +306,8 @@ void jeu()
          ================================================*/
 
         scanf("%c%d", &choiceAlpha, &choiceNum);
+        emptyBuffer();
+
         if (choiceAlpha == 'q')
         {
             modeEtat = 0;
@@ -332,19 +344,30 @@ void jeu()
                                 grid[5][8] = 5;
                             }
 
-
+                            else if (grid[8][6] == 4 && grid[9][6] == 4)
+                            {
+                                grid[8][6] = 5;
+                                grid[9][6] = 5;
+                            }
 
                             //Search for the line corresponding to the letter choose by the player
                             updateGrid(ligne, colonne, grid);
-                            printf("\nChoisissez la case a abattre:");
-                            printf("\nPressez 5 pour quitter:\n");
-                            putchar('\n');
+                            printf("\nHit!\n");
+                            //printf("\nChoisissez la case a abattre:");
+                            //printf("\nPressez 5 pour quitter:\n");
+                            //putchar('\n');
 
                         }
                         else
                         {
+                            grid[j][choiceNum] = 6;
+                            updateGrid(ligne, colonne, grid);
                             printf("\nMiss!");
+                            //printf("\nChoisissez la case a abattre:");
+                            //printf("\nPressez 5 pour quitter:\n");
                         }
+                        printf("\nChoisissez la case a abattre:");
+                        printf("\nPressez 5 pour quitter:\n");
                     }
                 }
             }
