@@ -304,89 +304,78 @@ void jeu()
          * Display the selector controler part of the grid (A-Z; 1-15)
          *
          ================================================*/
-
+        choiceAlpha = "z";
+        choiceNum = 0;
         scanf("%c%d", &choiceAlpha, &choiceNum);
-        emptyBuffer();
+        //emptyBuffer();
 
         if (choiceAlpha == 'q')
         {
             modeEtat = 0;
         }
 
-        if(choiceNum > 0 && choiceNum < 11)
+        if(choiceNum > 0 && choiceNum < 11 && choiceNum != 0 && choiceAlpha != "z")
         {
-            if (choiceAlpha != "z" && choiceNum != 0)
+            for (int j = 0; j < ligne; ++j)
             {
-                for (int j = 0; j < ligne; ++j)
+                int shotLigne = 0;
+                if (Alphabet[j] == choiceAlpha)
                 {
-                    int shotLigne = 0;
-                    if (Alphabet[j] == choiceAlpha)
+                    shotLigne = j;
+                    if (ShipGrid[j][choiceNum] != 0)
+                    //if (initGameGrid(1, ligne, colonne, shotLigne, choiceNum) == true)
                     {
-                        shotLigne = j;
-                        if (ShipGrid[j][choiceNum] != 0)
-                        //if (initGameGrid(1, ligne, colonne, shotLigne, choiceNum) == true)
+                        printf("\n%d\n", ShipGrid[shotLigne][choiceNum]);
+                        grid[j][choiceNum] = 4;
+                        if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
                         {
-                            printf("\n%d\n", ShipGrid[shotLigne][choiceNum]);
-                            grid[j][choiceNum] = 4;
-                            if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
-                            {
-                                grid[1][1] = 5;
-                                grid[1][2] = 5;
-                                grid[1][3] = 5;
-                                grid[1][4] = 5;
-                                grid[1][5] = 5;
-                            }
-
-                            else if (grid[3][8] == 4 && grid[4][8] == 4 && grid[5][8] == 4)
-                            {
-                                grid[3][8] = 5;
-                                grid[4][8] = 5;
-                                grid[5][8] = 5;
-                            }
-
-                            else if (grid[8][6] == 4 && grid[9][6] == 4)
-                            {
-                                grid[8][6] = 5;
-                                grid[9][6] = 5;
-                            }
-
-                            //Search for the line corresponding to the letter choose by the player
-                            updateGrid(ligne, colonne, grid);
-                            printf("\nHit!\n");
-                            //printf("\nChoisissez la case a abattre:");
-                            //printf("\nPressez 5 pour quitter:\n");
-                            //putchar('\n');
-
+                            grid[1][1] = 5;
+                            grid[1][2] = 5;
+                            grid[1][3] = 5;
+                            grid[1][4] = 5;
+                            grid[1][5] = 5;
                         }
-                        else
+
+                        else if (grid[3][8] == 4 && grid[4][8] == 4 && grid[5][8] == 4)
                         {
-                            grid[j][choiceNum] = 6;
-                            updateGrid(ligne, colonne, grid);
-                            printf("\nMiss!");
-                            //printf("\nChoisissez la case a abattre:");
-                            //printf("\nPressez 5 pour quitter:\n");
+                            grid[3][8] = 5;
+                            grid[4][8] = 5;
+                            grid[5][8] = 5;
                         }
-                        printf("\nChoisissez la case a abattre:");
-                        printf("\nPressez 5 pour quitter:\n");
+
+                        else if (grid[8][6] == 4 && grid[9][6] == 4)
+                        {
+                            grid[8][6] = 5;
+                            grid[9][6] = 5;
+                        }
+
+                        //Search for the line corresponding to the letter choose by the player
+                        updateGrid(ligne, colonne, grid);
+                        printf("\nHit!\n");
+                        //printf("\nChoisissez la case a abattre:");
+                        //printf("\nPressez 5 pour quitter:\n");
+                        //putchar('\n');
+
                     }
+                    else
+                    {
+                        grid[j][choiceNum] = 6;
+                        updateGrid(ligne, colonne, grid);
+                        printf("\nMiss!");
+                        //printf("\nChoisissez la case a abattre:");
+                        //printf("\nPressez 5 pour quitter:\n");
+                    }
+                    printf("\nChoisissez la case a abattre:");
+                    printf("\nPressez 5 pour quitter:\n");
                 }
             }
-            else
-            {
-                printf("\nCase impossible SALE MERDE!:\n");
-                printf("\nChoisissez la case a abattre:\n");
-                printf("\nPressez 5 pour quitter:\n");
-            }
         }
-        //scanf("%d", &QuitGame);
-
-        //Return to main menu
-        /*
-        if (QuitGame == true)
+        else
         {
-            modeEtat = 0;
+            printf("\nCase impossible SALE MERDE!:\n");
+            printf("\nChoisissez la case a abattre:\n");
+            printf("\nPressez 5 pour quitter:\n");
         }
-         */
     }
 }
 
