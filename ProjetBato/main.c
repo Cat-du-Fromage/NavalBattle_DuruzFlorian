@@ -14,7 +14,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <windows.h>
-
+/**
+ * \brief modeEtat : (State Machine) Define which function the programme is running
+ */
 int modeEtat = 0;
 
 void emptyBuffer()
