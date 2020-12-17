@@ -166,11 +166,13 @@ void jeu()
 *   i(9)   -  -  -  -  -  t  -  -  -  -
 *   j(10)  -  -  -  -  -  -  -  -  -  -
     */
+
+
     bool victory = false;
     bool alpha = false;
     bool num = false;
     // Battleship
-    int pShip = 7;
+    int pShip = 10;
     shipGrid[1][1] = pShip;
     shipGrid[1][2] = pShip;
     shipGrid[1][3] = pShip;
@@ -178,23 +180,24 @@ void jeu()
     shipGrid[1][5] = pShip;
     bool pShipSink = false;
     //cruiser
-    int cShip = 2;
+    int cShip = 11;
     shipGrid[3][8] = cShip;
     shipGrid[4][8] = cShip;
     shipGrid[5][8] = cShip;
     bool cShipSink = false;
     //torpedo
-    int tShip = 3;
+    int tShip = 12;
     shipGrid[8][6] = tShip;
     shipGrid[9][6] = tShip;
     bool tShipSink = false;
     //Cruiser 2
-    int cShip2 = 5;
+    int cShip2 = 13;
     shipGrid[4][4] = cShip2;
     shipGrid[4][5] = cShip2;
     shipGrid[4][6] = cShip2;
     bool cShip2Sink = false;
 
+    // initialize the ship grid
     for (int i = 0; i < ligne; ++i)
     {
         for (int j = 0; j < colonne; ++j)
@@ -206,7 +209,7 @@ void jeu()
         }
     }
     //=================================================================
-
+    //Initialize the player grid
     for(int a=0; a < ligne; a++)
     {
         for(int b=0; b < colonne; b++)
@@ -301,7 +304,6 @@ void jeu()
             }
             while (num == false)
             {
-                //printf("\nVeuillez choisir un chiffre entre <1> et <10>");
                 int resNum = scanf("%d", &choiceNum);
                 if (resNum == 0)
                 {
@@ -323,12 +325,13 @@ void jeu()
                 for (int j = 0; j < ligne; ++j)
                 {
                     int shotLigne = 0;
+                    //Search for the line corresponding to the letter choose by the player
                     if (alphabet[j] == choiceAlpha)
                     {
                         shotLigne = j;
-                        if (shipGrid[j][choiceNum] != 0 && grid[shotLigne][choiceNum] != 4)
+                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4)
                         {
-                            printf("test1\n%d\n", shipGrid[shotLigne][choiceNum]);
+                            //printf("test1\n%d\n", shipGrid[shotLigne][choiceNum]);
 
                             grid[shotLigne][choiceNum] = 4;
                             if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
@@ -369,11 +372,9 @@ void jeu()
                             }
                             else
                             {
-                                //printf("\nHit!\n");
+                                printf("\nHit!\n");
                             }
 
-                            //Search for the line corresponding to the letter choose by the player
-                            printf("\nHit!\n");
                             updateGrid(ligne, colonne, grid);
                         }
                         else if (grid[shotLigne][choiceNum] == 4)
@@ -411,13 +412,12 @@ void jeu()
 //=====================================================================================================
 /**
  * @brief main - Main menu, State machine system
- * @return void
+ * @return int
  */
 //=====================================================================================================
-void main()
+int main()
 {
     setbuf(stdout,0);
-    //Dconsole.encoding=UTF-8
     SetConsoleOutputCP(65001);
     /*===========================
 
@@ -458,7 +458,6 @@ void main()
             emptyBuffer();
         }
 
-        //scanf("%d", &choixMenu);
         switch (choixMenu)
         {
             case 0:
@@ -478,6 +477,9 @@ void main()
                 Aide();
                 choixMenu = 0;
                 break;
+            case 5:
+                printf("Bye!");
+                return 1;
             default:// mode "Main Menu
                 modeEtat = 0;
                 choixMenu = 0;
@@ -485,5 +487,5 @@ void main()
         }
 
     }
-
+    return 0;
 }
