@@ -183,9 +183,9 @@ void jeu()
     bool pShipSink = false;
     //cruiser
     int cShip = 11;
-    shipGrid[3][8] = cShip;
-    shipGrid[4][8] = cShip;
-    shipGrid[5][8] = cShip;
+    shipGrid[6][2] = cShip;
+    shipGrid[7][2] = cShip;
+    shipGrid[8][2] = cShip;
     bool cShipSink = false;
     //torpedo
     int tShip = 12;
@@ -199,12 +199,19 @@ void jeu()
     shipGrid[4][6] = cShip2;
     bool cShip2Sink = false;
 
+    int bShip = 14;
+    shipGrid[3][8] = bShip;
+    shipGrid[4][8] = bShip;
+    shipGrid[5][8] = bShip;
+    shipGrid[6][8] = bShip;
+    bool bShipSink = false;
+
     // initialize the ship grid
     for (int i = 0; i < ligne; ++i)
     {
         for (int j = 0; j < colonne; ++j)
         {
-            if (shipGrid[i][j] != pShip && shipGrid[i][j] != cShip && shipGrid[i][j] != tShip && shipGrid[i][j] != cShip2)
+            if (shipGrid[i][j] != pShip && shipGrid[i][j] != cShip && shipGrid[i][j] != tShip && shipGrid[i][j] != cShip2 && shipGrid[i][j] != bShip)
             {
                 shipGrid[i][j] = 0;
             }
@@ -331,7 +338,7 @@ void jeu()
                     if (alphabet[j] == choiceAlpha)
                     {
                         shotLigne = j;
-                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4)
+                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 5)
                         {
                             //printf("test1\n%d\n", shipGrid[shotLigne][choiceNum]);
 
@@ -347,11 +354,11 @@ void jeu()
                                 pShipSink = true;
                             }
 
-                            else if (grid[3][8] == 4 && grid[4][8] == 4 && grid[5][8] == 4)
+                            else if (grid[6][2] == 4 && grid[7][2] == 4 && grid[8][2] == 4)
                             {
-                                grid[3][8] = 5;
-                                grid[4][8] = 5;
-                                grid[5][8] = 5;
+                                grid[6][2] = 5;
+                                grid[7][2] = 5;
+                                grid[8][2] = 5;
                                 printf("\nTouché coulé!!!\n");
                                 cShipSink = true;
                             }
@@ -372,6 +379,16 @@ void jeu()
                                 printf("\nTouché coulé!!!\n");
                                 cShip2Sink = true;
                             }
+
+                            else if (grid[3][8] == 4 && grid[4][8] == 4 && grid[5][8] == 4 && grid[6][8] == 4)
+                            {
+                                grid[3][8] = 5;
+                                grid[4][8] = 5;
+                                grid[5][8] = 5;
+                                grid[6][8] = 5;
+                                printf("\nTouché coulé!!!\n");
+                                bShipSink = true;
+                            }
                             else
                             {
                                 printf("\nTouché!\n");
@@ -379,7 +396,7 @@ void jeu()
 
                             updateGrid(ligne, colonne, grid);
                         }
-                        else if (grid[shotLigne][choiceNum] == 4)
+                        else if (grid[shotLigne][choiceNum] == 4 || grid[shotLigne][choiceNum] == 5 || grid[shotLigne][choiceNum] == 6)
                         {
                             printf("\nvous avez déjà tiré ici.");
                         }
@@ -398,7 +415,7 @@ void jeu()
                 num = false;
             }
 
-            if (pShipSink == true && cShipSink == true && tShipSink == true && cShip2Sink == true)
+            if (pShipSink == true && cShipSink == true && tShipSink == true && cShip2Sink == true && bShipSink == true)
             {
                 printf("\nVOUS AVEZ GAGNEZ!\n");
                 printf("Retour au menu\n");
