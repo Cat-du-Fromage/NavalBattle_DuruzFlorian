@@ -77,6 +77,16 @@ void Aide()
 //=====================================================================================================
 void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
 {
+    /*================================================
+         * grid take a value according to the value of the vector
+         * 0 =top left of the grid
+         * 1 = A-Z controler Value
+         * 2 = TOP controler number value
+         * 3 = Water Tile
+         * 4 = HIT
+         * 5 = Sink
+         * 6 = Miss
+         ================================================*/
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
     int vide = 0;
@@ -154,25 +164,25 @@ void jeu()
     //=================================================================
     //Init Ship Grid
     int shipGrid[ligne][colonne];
-/*
-           1  2  3  4  5  6  7  8  9  10
-*
-*   a(1)   p  p  p  p  p  -  -  -  -  -
-*   b(2)   -  -  -  -  -  -  -  -  -  -
-*   c(3)   -  -  -  -  -  -  -  c  -  -
-*   d(4)   -  -  -  s  s  s  -  c  -  -
-*   e(5)   -  -  -  -  -  -  -  c  -  -
-*   f(6)   -  s  -  -  -  -  -  c  -  -
-*   g(7)   -  s  -  -  -  -  -  -  -  -
-*   h(8)   -  s  -  -  -  t  -  -  -  -
-*   i(9)   -  -  -  -  -  t  -  -  -  -
-*   j(10)  -  -  -  -  -  -  -  -  -  -
+    /*
+               1  2  3  4  5  6  7  8  9  10
+    *
+    *   a(1)   p  p  p  p  p  -  -  -  -  -
+    *   b(2)   -  -  -  -  -  -  -  -  -  -
+    *   c(3)   -  -  -  -  -  -  -  c  -  -
+    *   d(4)   -  -  -  s  s  s  -  c  -  -
+    *   e(5)   -  -  -  -  -  -  -  c  -  -
+    *   f(6)   -  s  -  -  -  -  -  c  -  -
+    *   g(7)   -  s  -  -  -  -  -  -  -  -
+    *   h(8)   -  s  -  -  -  t  -  -  -  -
+    *   i(9)   -  -  -  -  -  t  -  -  -  -
+    *   j(10)  -  -  -  -  -  -  -  -  -  -
     */
 
 
     bool victory = false;
-    bool alpha = false;
-    bool num = false;
+    bool alphabetChecker = false;
+    bool numChecker = false;
     // Battleship
     int pShip = 10;
     shipGrid[1][1] = pShip;
@@ -205,7 +215,7 @@ void jeu()
     shipGrid[5][8] = bShip;
     shipGrid[6][8] = bShip;
     bool bShipSink = false;
-
+    //===============================================================================================================================================
     // initialize the ship grid
     for (int i = 0; i < ligne; ++i)
     {
@@ -217,8 +227,9 @@ void jeu()
             }
         }
     }
-    //=================================================================
+    //===============================================================================================================================================
     //Initialize the player grid
+
     for(int a=0; a < ligne; a++)
     {
         for(int b=0; b < colonne; b++)
@@ -248,31 +259,16 @@ void jeu()
     printf("\nChoisissez la case a abattre:\n");
     printf("\nPressez <q> pour quitter:\n");
     putchar('\n');
-
+    //===============================================================================================================================================
     while (modeEtat == 1)
     {
-        /*
-         * grid take a value according to the value of the vector
-         * 0 =top left of the grid
-         * 1 = A-Z controler Value
-         * 2 = TOP controler number value
-         * 3 = Water Tile
-         * 4 = HIT
-         */
-
-        /*================================================
-         *
-         * Display the game grid
-         * Display the selector controler part of the grid (A-Z; 1-15)
-         *
-         ================================================*/
         if(victory == false)
         {
             choiceAlpha = 'z';
             choiceNum = 0;
 
             printf("\nVeuillez choisir une lettre entre <a> et <j>");
-            while (alpha == false)
+            while (alphabetChecker == false)
             {
                 int resAlpha = scanf("%c", &choiceAlpha);
                 if (resAlpha == 0)
@@ -284,8 +280,8 @@ void jeu()
                 else if (choiceAlpha == 'q')
                 {
                     modeEtat = 0;
-                    alpha = true;
-                    num = true;
+                    alphabetChecker = true;
+                    numChecker = true;
                 }
                 else
                 {
@@ -307,11 +303,11 @@ void jeu()
                     {
                         emptyBuffer();
                         printf("\nVeuillez choisir un chiffre entre <1> et <10>");
-                        alpha = true;
+                        alphabetChecker = true;
                     }
                 }
             }
-            while (num == false)
+            while (numChecker == false)
             {
                 int resNum = scanf("%d", &choiceNum);
                 if (resNum == 0)
@@ -321,7 +317,7 @@ void jeu()
                 }
                 else if (choiceNum > 0 && choiceNum < 11)
                 {
-                    num = true;
+                    numChecker = true;
                 }
                 else
                 {
@@ -329,7 +325,7 @@ void jeu()
                     printf("\nChoix non valide, Veuillez choisir un chiffre entre <1> et <10>");
                 }
             }
-            if(num == true && alpha == true)
+            if(numChecker == true && alphabetChecker == true)
             {
                 for (int j = 0; j < ligne; ++j)
                 {
@@ -340,8 +336,6 @@ void jeu()
                         shotLigne = j;
                         if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 5)
                         {
-                            //printf("test1\n%d\n", shipGrid[shotLigne][choiceNum]);
-
                             grid[shotLigne][choiceNum] = 4;
                             if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
                             {
@@ -411,13 +405,13 @@ void jeu()
                         emptyBuffer();
                     }
                 }
-                alpha = false;
-                num = false;
+                alphabetChecker = false;
+                numChecker = false;
             }
 
             if (pShipSink == true && cShipSink == true && tShipSink == true && cShip2Sink == true && bShipSink == true)
             {
-                printf("\nVOUS AVEZ GAGNEZ!\n");
+                printf("\nVous avez gagné !\n");
                 printf("Retour au menu\n");
                 victory = true;
                 modeEtat = 0;
@@ -445,6 +439,7 @@ int main()
     * 0/Default : Main Menu - function main()
     * 1         : Play - function jeu()
     * 2         : Help menu - function Aide()
+    * 5         : Quit the Game
 
     ===========================*/
     int choixMenu = 0;
