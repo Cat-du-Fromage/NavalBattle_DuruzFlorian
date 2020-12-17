@@ -329,7 +329,7 @@ void jeu()
                     if (alphabet[j] == choiceAlpha)
                     {
                         shotLigne = j;
-                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4)
+                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4)
                         {
                             //printf("test1\n%d\n", shipGrid[shotLigne][choiceNum]);
 
@@ -372,7 +372,7 @@ void jeu()
                             }
                             else
                             {
-                                printf("\nHit!\n");
+                                printf("\nTouché!\n");
                             }
 
                             updateGrid(ligne, colonne, grid);
@@ -385,7 +385,7 @@ void jeu()
                         {
                             grid[shotLigne][choiceNum] = 6;
                             updateGrid(ligne, colonne, grid);
-                            printf("\nMiss!");
+                            printf("\nRaté!");
                         }
                         printf("\nChoisissez la case a abattre:");
                         printf("\nPressez q pour quitter:\n");
