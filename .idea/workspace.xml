@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="ProjetBato" targetName="ProjetBato" />
@@ -34,7 +37,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ProjetBato/CMakeLists.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ICT-114/xor" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
   </component>
   <component name="RunManager">
     <configuration name="ProjetBato" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ProjetBato" TARGET_NAME="ProjetBato" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ProjetBato" RUN_TARGET_NAME="ProjetBato">
@@ -57,7 +61,12 @@
       <workItem from="1606982326352" duration="14735000" />
       <workItem from="1607065606928" duration="6054000" />
       <workItem from="1607603191176" duration="7888000" />
-      <workItem from="1607611782103" duration="309000" />
+      <workItem from="1607611782103" duration="463000" />
+      <workItem from="1607670171761" duration="6624000" />
+      <workItem from="1608035790520" duration="612000" />
+      <workItem from="1608042850565" duration="1388000" />
+      <workItem from="1608188317068" duration="4418000" />
+      <workItem from="1608192786820" duration="514000" />
     </task>
     <servers />
   </component>
@@ -65,26 +74,26 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1220" y="263" key="FileChooserDialogImpl" timestamp="1606810007516">
+    <state x="1220" y="263" key="FileChooserDialogImpl" timestamp="1608043628113">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1220" y="263" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1606810007516" />
-    <state width="1877" height="333" key="GridCell.Tab.0.bottom" timestamp="1607612041854">
+    <state x="1220" y="263" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1608043628113" />
+    <state width="1877" height="333" key="GridCell.Tab.0.bottom" timestamp="1608193227895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607612041854" />
-    <state width="1877" height="333" key="GridCell.Tab.0.center" timestamp="1607612041854">
+    <state width="1877" height="333" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608193227895" />
+    <state width="1877" height="333" key="GridCell.Tab.0.center" timestamp="1608193227895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607612041854" />
-    <state width="1877" height="333" key="GridCell.Tab.0.left" timestamp="1607612041854">
+    <state width="1877" height="333" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608193227895" />
+    <state width="1877" height="333" key="GridCell.Tab.0.left" timestamp="1608193227895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607612041854" />
-    <state width="1877" height="333" key="GridCell.Tab.0.right" timestamp="1607612041854">
+    <state width="1877" height="333" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608193227895" />
+    <state width="1877" height="333" key="GridCell.Tab.0.right" timestamp="1608193227895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="333" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607612041854" />
+    <state width="1877" height="333" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608193227895" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1607163299241">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -101,29 +110,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607163299241" />
+    <state x="744" y="87" key="SettingsEditor" timestamp="1607673673447">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="744" y="87" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607673673447" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1607609309670">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607609309670" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607001910971">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1607673068118">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607001910971" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/ProjetBato/main.c</url>
-          <line>50</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/ProjetBato/main.c</url>
-          <line>48</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607673068118" />
   </component>
 </project>
