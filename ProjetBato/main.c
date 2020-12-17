@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <windows.h>
+
 /**
  * \brief modeEtat : (State Machine) Define which function the programme is running
  */
@@ -107,36 +108,37 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
             }
             else if (grid[i][j] == number)
             {
-                printf("%3d", j);
+                printf("%3d", j); // Grid Number 1 -> 10
             }
             else if (grid[i][j] == letter)
             {
-                printf("%c", Alphabet[i]);
+                printf("%c", Alphabet[i]); // Grid Letter A -> J
             }
             else if (grid[i][j] == hit)
             {
                 char hitMark = 'x';
-                printf("%3c", hitMark);
+                printf("%3c", hitMark); // Hit Mark Define by x
             }
             else if (grid[i][j] == sink)
             {
                 char sinkMark = 'c';
-                printf("%3c", sinkMark);
+                printf("%3c", sinkMark); // Sink Grid Mark
             }
             else if (grid[i][j] == miss)
             {
                 char missMark = '0';
-                printf("%3c", missMark);
+                printf("%3c", missMark); // Miss Grid Mark
             }
             else
             {
                 char water = '~';
-                printf("%3c", water);
+                printf("%3c", water); // Water Grid Mark
             }
         }
         putchar('\n');
     }
 }
+
 
 //=====================================================================================================
 /**
@@ -184,7 +186,7 @@ void jeu()
     bool alphabetChecker = false;
     bool numChecker = false;
     // Battleship
-    int pShip = 10;
+    int pShip = 10; // 10 Define the Battleship on the grid
     shipGrid[1][1] = pShip;
     shipGrid[1][2] = pShip;
     shipGrid[1][3] = pShip;
@@ -192,24 +194,24 @@ void jeu()
     shipGrid[1][5] = pShip;
     bool pShipSink = false;
     //cruiser
-    int cShip = 11;
+    int cShip = 11; // 11 Define the Cruiser on the grid
     shipGrid[6][2] = cShip;
     shipGrid[7][2] = cShip;
     shipGrid[8][2] = cShip;
     bool cShipSink = false;
     //torpedo
-    int tShip = 12;
+    int tShip = 12; // 12 Define the torpedo on the grid
     shipGrid[8][6] = tShip;
     shipGrid[9][6] = tShip;
     bool tShipSink = false;
     //Cruiser 2
-    int cShip2 = 13;
+    int cShip2 = 13; // 13 Define the second cruider on the grid
     shipGrid[4][4] = cShip2;
     shipGrid[4][5] = cShip2;
     shipGrid[4][6] = cShip2;
     bool cShip2Sink = false;
 
-    int bShip = 14;
+    int bShip = 14; // 14 Define the Second Cruiser on the grid
     shipGrid[3][8] = bShip;
     shipGrid[4][8] = bShip;
     shipGrid[5][8] = bShip;
@@ -236,21 +238,21 @@ void jeu()
         {
             if (a == 0 && b == 0)
             {
-                grid[a][b] = 0;
+                grid[a][b] = 0; // Top Left Corner of the grid : nothing to display
             }
             else if (a == 0)
             {
-                grid[a][b] = 1;
+                grid[a][b] = 1; // Define Number Controler on the Grid (1 -> 10)
 
             }
             else if (b == 0)
             {
-                grid[a][b] = 2;
+                grid[a][b] = 2; // Define Letter (A->J) Controler on the Grid
 
             }
             else
             {
-                grid[a][b] = 3;
+                grid[a][b] = 3; // Define the water tile on the grid
             }
         }
 
@@ -286,6 +288,11 @@ void jeu()
                 else
                 {
                     //Check if the choice is between a-j
+                    /*
+                     * Go throught the alphabet table
+                     * Make +1 if the letter is within the Table
+                     * if the counter is equal to the total of the alphabet table: the letter enter by the player is not correct
+                     */
                     int compteurAlpha = 0;
                     for (int i = 0; i < ligne; ++i)
                     {
@@ -336,6 +343,12 @@ void jeu()
                         shotLigne = j;
                         if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 5)
                         {
+                            //====================================================
+                            /*
+                             * When Grid = 4 : Ship is Hit
+                             * When Grid = 5 : Ship is Sink
+                             */
+                            //====================================================
                             grid[shotLigne][choiceNum] = 4;
                             if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
                             {
@@ -396,6 +409,7 @@ void jeu()
                         }
                         else
                         {
+                            // 6 Define a Miss Hit in the Grid
                             grid[shotLigne][choiceNum] = 6;
                             updateGrid(ligne, colonne, grid);
                             printf("\nRaté!");
@@ -443,7 +457,7 @@ int main()
 
     ===========================*/
     int choixMenu = 0;
-    int previousState = 0;
+    int previousState = 0; // mechanical button to avoid the menu to display twice when coming back from the game
 
 
     printf("\nBienvenu dans La bataille Navale");
