@@ -1,9 +1,9 @@
 /**=====================================================================================================================
- * @file      ProjetBato.c
- * @author    <Florian Duruz>
- * @version   <0.1>
- * @date      <18-12-2020>
- * @brief     <this is "le Projet Bato" a naval battle>
+ * \file      ProjetBato.c
+ * \author    <Florian Duruz>
+ * \version   <0.1>
+ * \date      <18-12-2020>
+ * \brief     <this is "le Projet Bato" a naval battle>
  *
  =====================================================================================================================*/
 
@@ -15,13 +15,19 @@
 #include <windows.h>
 
 /**
- * @brief modeEtat : (State Machine) Define which function the programme is running
+ *
+ * \brief modeEtat : (State Machine) Define which function the programme is running
+ *
  */
 int modeEtat = 0;
 
 /**=====================================================================================================================
- * @brief emptyBuffer, use after a scanf function to clear the stored value
+ *
+ * \brief emptyBuffer, use after a scanf function to clear the stored value
+ *
  =====================================================================================================================*/
+
+
 void emptyBuffer()
 {
     int c = 0;
@@ -34,8 +40,8 @@ void emptyBuffer()
 
 /**=====================================================================================================================
  *
- *@brief Aide, display the rules of the game and how we play it
- *@return Void
+ *\brief Aide, display the rules of the game and how we play it
+ *\return Void
  *
  =====================================================================================================================*/
 void Aide()
@@ -70,11 +76,13 @@ void Aide()
 }
 
  /**====================================================================================================================
-  * @brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
-  * @param ligne - ligne in the game grid
-  * @param colonne - row in the game grid
-  * @param grid
-  * @return void
+  *
+  * \brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
+  * \param ligne - ligne in the game grid
+  * \param colonne - row in the game grid
+  * \param grid - Game Grid table
+  * \return void
+  *
   ====================================================================================================================*/
 
 void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
@@ -141,11 +149,13 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
 }
 
 /**=====================================================================================================================
- * @brief alphabetEntryChecker - Check if the player gace a correct entry for the alphabet
- * @param choiceAlpha
- * @param alphabet
- * @param ligne
- * @return true or false
+ *
+ * \brief alphabetEntryChecker - Check if the player gace a correct entry for the alphabet
+ * \param choiceAlpha - Character enter by the player
+ * \param alphabet - alphabet table
+ * \param ligne - grid line
+ * \return true or false
+ *
  =====================================================================================================================*/
 bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 {
@@ -173,8 +183,10 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 }
 
 /**=====================================================================================================================
- * @brief jeu - "Main" play function,
- * @return void
+ *
+ * \brief jeu - "Main" play function,
+ * \return void
+ *
  =====================================================================================================================*/
 
 void jeu()
@@ -458,8 +470,10 @@ void jeu()
 }
 
 /**=====================================================================================================================
- * @brief main - Main menu, State machine system
- * @return int
+ *
+ * \brief main - Main menu, State machine system
+ * \return int
+ *
 ===================================================================================================================== */
 
 int main()
