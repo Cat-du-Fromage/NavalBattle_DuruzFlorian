@@ -1,12 +1,11 @@
-/**
+/**=====================================================================================================================
  * @file      ProjetBato.c
  * @author    <Florian Duruz>
  * @version   <0.1>
  * @date      <18-12-2020>
  * @brief     <this is "le Projet Bato" a naval battle>
  *
- * @details    <More complete description>
- */
+ =====================================================================================================================*/
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -16,10 +15,13 @@
 #include <windows.h>
 
 /**
- * \brief modeEtat : (State Machine) Define which function the programme is running
+ * @brief modeEtat : (State Machine) Define which function the programme is running
  */
 int modeEtat = 0;
 
+/**=====================================================================================================================
+ * @brief emptyBuffer, use after a scanf function to clear the stored value
+ =====================================================================================================================*/
 void emptyBuffer()
 {
     int c = 0;
@@ -29,20 +31,20 @@ void emptyBuffer()
     }
 }
 
-//======================================================================================================
-/**
+
+/**=====================================================================================================================
  *
  *@brief Aide, display the rules of the game and how we play it
  *@return Void
  *
- */
-//======================================================================================================
+ =====================================================================================================================*/
 void Aide()
 {
     char quitAide = 'z';
 
-    //Text ICI
     printf("\nAide du jeu : Bataille Navale\n");
+    printf("\nBienvenu dans la bataille navale,\nLe principe est simple, séléctionnez la case de votre choix pour tirer sur un bateau,");
+    printf("\nPour gagner il vous faudra abattre les 5 bateaux en jeu.\n");
     printf("\nListe des indicateurs sur la grille du jeu");
     printf("\n~ : Case vierge");
     printf("\n0 : Tir manqué");
@@ -67,29 +69,28 @@ void Aide()
     modeEtat = 0;
 }
 
-//=====================================================================================================
- /**
+ /**====================================================================================================================
   * @brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
   * @param ligne - ligne in the game grid
   * @param colonne - row in the game grid
   * @param grid
   * @return void
-  */
-//=====================================================================================================
+  ====================================================================================================================*/
+
 void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
 {
-    /*================================================
-         * grid take a value according to the value of the vector
-         * 0 =top left of the grid
-         * 1 = A-Z controler Value
-         * 2 = TOP controler number value
-         * 3 = Water Tile
-         * 4 = HIT
-         * 5 = Sink
-         * 6 = Miss
-         ================================================*/
     char Alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
+    /*================================================
+     * grid take a value according to the value of the vector
+     * 0 =top left of the grid
+     * 1 = A-Z controler Value
+     * 2 = TOP controler number value
+     * 3 = Water Tile
+     * 4 = HIT
+     * 5 = Sink
+     * 6 = Miss
+    ================================================*/
     int vide = 0;
     int number = 1;
     int letter = 2;
@@ -139,13 +140,43 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
     }
 }
 
+/**=====================================================================================================================
+ * @brief alphabetEntryChecker - Check if the player gace a correct entry for the alphabet
+ * @param choiceAlpha
+ * @param alphabet
+ * @param ligne
+ * @return true or false
+ =====================================================================================================================*/
+bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
+{
+    /*
+     * Go throught the alphabet table
+     * Make +1 if the letter is within the Table
+     * if the counter is equal to the total of the alphabet table: the letter enter by the player is not correct
+     */
+    int compteurAlpha = 0;
+    for (int i = 0; i < ligne; ++i)
+    {
+        if (alphabet[i] != choiceAlpha)
+        {
+            compteurAlpha = compteurAlpha+1;
+        }
+    }
+    if (compteurAlpha == ligne)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
-//=====================================================================================================
-/**
+/**=====================================================================================================================
  * @brief jeu - "Main" play function,
  * @return void
- */
-//=====================================================================================================
+ =====================================================================================================================*/
+
 void jeu()
 {
     bool QuitGame = false;
@@ -287,30 +318,18 @@ void jeu()
                 }
                 else
                 {
-                    //Check if the choice is between a-j
-                    /*
-                     * Go throught the alphabet table
-                     * Make +1 if the letter is within the Table
-                     * if the counter is equal to the total of the alphabet table: the letter enter by the player is not correct
-                     */
-                    int compteurAlpha = 0;
-                    for (int i = 0; i < ligne; ++i)
-                    {
-                        if (alphabet[i] != choiceAlpha)
-                        {
-                            compteurAlpha = compteurAlpha+1;
-                        }
-                    }
-                    if (compteurAlpha == ligne)
-                    {
-                        emptyBuffer();
-                        printf("\nChoix non valide, Veuillez choisir une lettre entre <a> et <j>");
-                    }
-                    else
+                    //Check if the choice is between A-J
+
+                    if (alphabetEntryChecker(choiceAlpha,alphabet,ligne) == true)
                     {
                         emptyBuffer();
                         printf("\nVeuillez choisir un chiffre entre <1> et <10>");
                         alphabetChecker = true;
+                    }
+                    else
+                    {
+                        emptyBuffer();
+                        printf("\nChoix non valide, Veuillez choisir une lettre entre <a> et <j>");
                     }
                 }
             }
@@ -343,13 +362,14 @@ void jeu()
                         shotLigne = j;
                         if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 5)
                         {
-                            //====================================================
+                            //Indication for ship Hit
+                            grid[shotLigne][choiceNum] = 4;
+
+                            //==========================================================================================
                             /*
-                             * When Grid = 4 : Ship is Hit
                              * When Grid = 5 : Ship is Sink
                              */
-                            //====================================================
-                            grid[shotLigne][choiceNum] = 4;
+                            //==========================================================================================
                             if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
                             {
                                 grid[1][1] = 5;
@@ -396,6 +416,7 @@ void jeu()
                                 printf("\nTouché coulé!!!\n");
                                 bShipSink = true;
                             }
+                            //==========================================================================================
                             else
                             {
                                 printf("\nTouché!\n");
@@ -436,12 +457,11 @@ void jeu()
     }
 }
 
-//=====================================================================================================
-/**
+/**=====================================================================================================================
  * @brief main - Main menu, State machine system
  * @return int
- */
-//=====================================================================================================
+===================================================================================================================== */
+
 int main()
 {
     setbuf(stdout,0);
