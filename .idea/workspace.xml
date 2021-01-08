@@ -37,13 +37,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
   </component>
   <component name="RunManager">
     <configuration name="ProjetBato" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ProjetBato" TARGET_NAME="ProjetBato" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ProjetBato" RUN_TARGET_NAME="ProjetBato">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -69,6 +74,7 @@
       <workItem from="1608192786820" duration="1191000" />
       <workItem from="1608194007349" duration="75000" />
       <workItem from="1608194123607" duration="35000" />
+      <workItem from="1610090144790" duration="2824000" />
     </task>
     <servers />
   </component>
@@ -80,22 +86,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="263" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1608194148993" />
-    <state width="1877" height="487" key="GridCell.Tab.0.bottom" timestamp="1608193992190">
+    <state width="1877" height="119" key="GridCell.Tab.0.bottom" timestamp="1610092745774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="487" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608193992190" />
-    <state width="1877" height="487" key="GridCell.Tab.0.center" timestamp="1608193992190">
+    <state width="1877" height="119" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610092745774" />
+    <state width="1877" height="119" key="GridCell.Tab.0.center" timestamp="1610092745774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="487" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608193992190" />
-    <state width="1877" height="487" key="GridCell.Tab.0.left" timestamp="1608193992190">
+    <state width="1877" height="119" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610092745774" />
+    <state width="1877" height="119" key="GridCell.Tab.0.left" timestamp="1610092745773">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="487" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608193992190" />
-    <state width="1877" height="487" key="GridCell.Tab.0.right" timestamp="1608193992190">
+    <state width="1877" height="119" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610092745773" />
+    <state width="1877" height="119" key="GridCell.Tab.0.right" timestamp="1610092745774">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="487" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608193992190" />
+    <state width="1877" height="119" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610092745774" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1607163299241">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -14,6 +14,14 @@
 #include <stdlib.h>
 #include <windows.h>
 
+#define WATER 20;       //water tiles
+#define ALPHAGRID 21;   //Alphabet controler on the grid (A > Z)
+#define NUMGRID 22;     //Number controler on the grid (1 > 10)
+#define EMPTYGRID 23;   //Top left corner of the grid
+#define HITGRID 24;     //Hit on the grid
+#define MISSGRID 25;    //Miss on the grid
+#define SINKGRID 26;    //Sink on the grid
+
 /**
  *
  * \brief modeEtat : (State Machine) Define which function the programme is running
@@ -75,6 +83,94 @@ void Aide()
     modeEtat = 0;
 }
 
+//=====================================================================================================
+
+FILE* openFile(FILE* file, char* name, char* mode)
+{
+    file = NULL;
+    file = fopen(name, mode);
+    if(file == NULL)
+    {
+        printf("Could not open a file!\n");
+        exit(1);
+    }
+    else
+    {
+        printf("File was opened/created successfully!\n\n");
+    }
+
+    return file;
+}
+
+
+void loadGrid()
+{
+    FILE* file;
+    file = openFile(file,"P:\\FPA\\MA20\\TestTXT\\testGrid2.txt", "r");
+
+    char charFile;
+    int temp, col = 0, row = 1;
+    int arr[row][col];
+    //calculating the no. of rows and columns in the text file
+    do
+    {
+        charFile = fgetc (file);
+        //printf("%c", charFile);
+        if((temp != 2) && (charFile == ' ' || charFile == '\n'))
+        {
+            col++;
+        }
+
+        if(charFile == '\n')
+        {
+            temp =2;
+            row++;
+        }
+    } while (charFile != EOF);
+
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            arr[i][j] = 0;
+        }
+    }
+
+    rewind(file);
+    //printf("row = %d; col = %d\n", row, col);
+
+    for(int i=0; i < row; i++)
+    {
+        for(int j=0; j < col; j++)
+        {
+            charFile = fgetc (file);
+            if (charFile != ' ' && charFile != '\n')
+            {
+                arr[i][j] = (int)charFile - 48; // see ASCII table
+                printf("%d", arr[i][j]);
+
+            }
+            else if (charFile == ' ')
+            {
+                printf(" ");
+                j -= 1;
+            }
+            else
+            {
+                j -= 1;
+            }
+        }
+        printf("\n");
+    }
+}
+
+//=================================================================================================================
+
+
+
+
+
+
  /**====================================================================================================================
   *
   * \brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
@@ -99,12 +195,12 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
      * 5 = Sink
      * 6 = Miss
     ================================================*/
-    int vide = 0;
-    int number = 1;
-    int letter = 2;
-    int hit = 4;
-    int sink = 5;
-    int miss = 6;
+    int vide = EMPTYGRID;
+    int number = NUMGRID;
+    int letter = ALPHAGRID;
+    int hit = HITGRID;
+    int sink = SINKGRID;
+    int miss = MISSGRID;
 
     for (int i = 0; i <ligne ; ++i)
     {
@@ -281,21 +377,21 @@ void jeu()
         {
             if (a == 0 && b == 0)
             {
-                grid[a][b] = 0; // Top Left Corner of the grid : nothing to display
+                grid[a][b] = EMPTYGRID; // Top Left Corner of the grid : nothing to display
             }
             else if (a == 0)
             {
-                grid[a][b] = 1; // Define Number Controler on the Grid (1 -> 10)
+                grid[a][b] = NUMGRID; // Define Number Controler on the Grid (1 -> 10)
 
             }
             else if (b == 0)
             {
-                grid[a][b] = 2; // Define Letter (A->J) Controler on the Grid
+                grid[a][b] = ALPHAGRID; // Define Letter (A->J) Controler on the Grid
 
             }
             else
             {
-                grid[a][b] = 3; // Define the water tile on the grid
+                grid[a][b] = WATER; // Define the water tile on the grid
             }
         }
 
@@ -371,60 +467,64 @@ void jeu()
                     //Search for the line corresponding to the letter choose by the player
                     if (alphabet[j] == choiceAlpha)
                     {
+                        int hit = HITGRID;
+                        int miss = MISSGRID;
+                        int sink = SINKGRID;
+
                         shotLigne = j;
-                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 4 && grid[shotLigne][choiceNum] != 5)
+                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != hit && grid[shotLigne][choiceNum] != hit && grid[shotLigne][choiceNum] != sink)
                         {
                             //Indication for ship Hit
-                            grid[shotLigne][choiceNum] = 4;
+                            grid[shotLigne][choiceNum] = HITGRID;
 
                             //==========================================================================================
                             /*
                              * When Grid = 5 : Ship is Sink
                              */
                             //==========================================================================================
-                            if (grid[1][1] == 4 && grid[1][2] == 4 && grid[1][3] == 4 && grid[1][4] == 4 && grid[1][5] == 4)
+                            if (grid[1][1] == hit && grid[1][2] == hit && grid[1][3] == hit && grid[1][4] == hit && grid[1][5] == hit)
                             {
-                                grid[1][1] = 5;
-                                grid[1][2] = 5;
-                                grid[1][3] = 5;
-                                grid[1][4] = 5;
-                                grid[1][5] = 5;
+                                grid[1][1] = SINKGRID;
+                                grid[1][2] = SINKGRID;
+                                grid[1][3] = SINKGRID;
+                                grid[1][4] = SINKGRID;
+                                grid[1][5] = SINKGRID;
                                 printf("\nTouché coulé!!!\n");
                                 pShipSink = true;
                             }
 
-                            else if (grid[6][2] == 4 && grid[7][2] == 4 && grid[8][2] == 4)
+                            else if (grid[6][2] == hit && grid[7][2] == hit && grid[8][2] == hit)
                             {
-                                grid[6][2] = 5;
-                                grid[7][2] = 5;
-                                grid[8][2] = 5;
+                                grid[6][2] = SINKGRID;
+                                grid[7][2] = SINKGRID;
+                                grid[8][2] = SINKGRID;
                                 printf("\nTouché coulé!!!\n");
                                 cShipSink = true;
                             }
 
-                            else if (grid[8][6] == 4 && grid[9][6] == 4)
+                            else if (grid[8][6] == hit && grid[9][6] == hit)
                             {
-                                grid[8][6] = 5;
-                                grid[9][6] = 5;
+                                grid[8][6] = SINKGRID;
+                                grid[9][6] = SINKGRID;
                                 printf("\nTouché coulé!!!\n");
                                 tShipSink = true;
                             }
 
-                            else if (grid[4][4] == 4 && grid[4][5] == 4 && grid[4][6] == 4)
+                            else if (grid[4][4] == hit && grid[4][5] == hit && grid[4][6] == hit)
                             {
-                                grid[4][4] = 5;
-                                grid[4][5] = 5;
-                                grid[4][6] = 5;
+                                grid[4][4] = SINKGRID;
+                                grid[4][5] = SINKGRID;
+                                grid[4][6] = SINKGRID;
                                 printf("\nTouché coulé!!!\n");
                                 cShip2Sink = true;
                             }
 
-                            else if (grid[3][8] == 4 && grid[4][8] == 4 && grid[5][8] == 4 && grid[6][8] == 4)
+                            else if (grid[3][8] == hit && grid[4][8] == hit && grid[5][8] == hit && grid[6][8] == hit)
                             {
-                                grid[3][8] = 5;
-                                grid[4][8] = 5;
-                                grid[5][8] = 5;
-                                grid[6][8] = 5;
+                                grid[3][8] = SINKGRID;
+                                grid[4][8] = SINKGRID;
+                                grid[5][8] = SINKGRID;
+                                grid[6][8] = SINKGRID;
                                 printf("\nTouché coulé!!!\n");
                                 bShipSink = true;
                             }
@@ -436,14 +536,14 @@ void jeu()
 
                             updateGrid(ligne, colonne, grid);
                         }
-                        else if (grid[shotLigne][choiceNum] == 4 || grid[shotLigne][choiceNum] == 5 || grid[shotLigne][choiceNum] == 6)
+                        else if (grid[shotLigne][choiceNum] == hit || grid[shotLigne][choiceNum] == sink || grid[shotLigne][choiceNum] == miss)
                         {
                             printf("\nvous avez déjà tiré ici.");
                         }
                         else
                         {
                             // 6 Define a Miss Hit in the Grid
-                            grid[shotLigne][choiceNum] = 6;
+                            grid[shotLigne][choiceNum] = MISSGRID;
                             updateGrid(ligne, colonne, grid);
                             printf("\nRaté!");
                         }
