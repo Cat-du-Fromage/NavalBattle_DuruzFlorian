@@ -10,10 +10,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-#include <string.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <string.h>
 
 //Tile Definition
 #define WATER 20       //water tiles
@@ -310,6 +310,21 @@ void jeu()
 
     char choiceAlpha = 'z';
     int choiceNum = 0;
+
+    //Pseudo Part
+    bool pseudoChoose = false;
+    char pseudo[] = "noName";
+    int pseudoLength = strlen(pseudo);
+    while (pseudoChoose == false)
+    {
+        printf("\nBienvenu dans la Bataille navale, Veuillez entrer un pseudo:\n");
+        scanf("%s", &pseudo);
+        printf("\nVotre pseudo est %s\n", pseudo);
+        emptyBuffer();
+        pseudoChoose = true;
+    }
+
+
     //Player Grid View
     int grid[ligne][colonne];
     //Generate a random number for grid selection
@@ -360,7 +375,7 @@ void jeu()
             }
             else
             {
-                j -= 1;
+                j -= 1; // "\n" on the file
             }
         }
         printf("\n");
@@ -391,23 +406,23 @@ void jeu()
 
     int shipSunk = 0; // number represente the ship sunk
     // Battleship
-    int ship5L = SHIP5L; // 10 Define the Battleship on the grid
+    int ship5L = SHIP5L; // "5" on the grid
     int ship5LLife = 5;
     bool ship5LSink = false;
     //cruiser
-    int ship3L1 = SHIP3L1; // 11 Define the Cruiser on the grid
+    int ship3L1 = SHIP3L1; // "2" on the grid
     int ship3L1Life = 3;
     bool ship3L1Sink = false;
     //torpedo
-    int ship2L = SHIP2L; // 12 Define the torpedo on the grid
+    int ship2L = SHIP2L; // "1" on the grid
     int ship2LLife = 2;
     bool ship2LSink = false;
     //Cruiser 2
-    int ship3L2 = SHIP3L2; // 13 Define the second cruider on the grid
+    int ship3L2 = SHIP3L2; // "3" on the grid
     int ship3L2Life = 3;
     bool ship3L2Sink = false;
 
-    int ship4L = SHIP4L; // 14 Define the Second Cruiser on the grid
+    int ship4L = SHIP4L; // "4" on the grid
     int ship4LLife = 4;
     bool ship4LSink = false;
     //===============================================================================================================================================
@@ -463,6 +478,7 @@ void jeu()
                     //Check if player want to Quit
                 else if (choiceAlpha == 'q')
                 {
+                    fclose(file);
                     modeEtat = 0;
                     alphabetChecker = true;
                     numChecker = true;
@@ -621,6 +637,7 @@ void jeu()
                 printf("\nVous avez gagné !\n");
                 printf("Retour au menu\n");
                 victory = true;
+                fclose(file);
                 modeEtat = 0;
             }
         }
