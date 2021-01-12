@@ -13,14 +13,23 @@
 #include <string.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <time.h>
 
-#define WATER 20;       //water tiles
-#define ALPHAGRID 21;   //Alphabet controler on the grid (A > Z)
-#define NUMGRID 22;     //Number controler on the grid (1 > 10)
-#define EMPTYGRID 23;   //Top left corner of the grid
-#define HITGRID 24;     //Hit on the grid
-#define MISSGRID 25;    //Miss on the grid
-#define SINKGRID 26;    //Sink on the grid
+//Tile Definition
+#define WATER 20       //water tiles
+#define ALPHAGRID 21   //Alphabet controler on the grid (A > Z)
+#define NUMGRID 22     //Number controler on the grid (1 > 10)
+#define EMPTYGRID 23   //Top left corner of the grid
+#define HITGRID 24     //Hit on the grid
+#define MISSGRID 25    //Miss on the grid
+#define SINKGRID 26    //Sink on the grid
+
+//Ships definition
+#define SHIP5L 5   //ship 5 tiles length
+#define SHIP2L 1  //ship 2 tiles length
+#define SHIP3L1 2  //first ship 3 tiles length
+#define SHIP3L2 3   //second ship 3 tiles length
+#define SHIP4L 4   //ship 4 tiles length
 
 /**
  *
@@ -102,15 +111,15 @@ FILE* openFile(FILE* file, char* name, char* mode)
     return file;
 }
 
-
+/*
 void loadGrid()
 {
     FILE* file;
     file = openFile(file,"P:\\FPA\\MA20\\TestTXT\\testGrid2.txt", "r");
 
     char charFile;
-    int temp, col = 0, row = 1;
-    int arr[row][col];
+    int temp, colonne = 0, ligne = 1;
+    int arr[ligne][colonne];
     //calculating the no. of rows and columns in the text file
     do
     {
@@ -118,30 +127,30 @@ void loadGrid()
         //printf("%c", charFile);
         if((temp != 2) && (charFile == ' ' || charFile == '\n'))
         {
-            col++;
+            colonne++;
         }
 
         if(charFile == '\n')
         {
             temp =2;
-            row++;
+            ligne++;
         }
     } while (charFile != EOF);
 
-    for (int i = 0; i < row; i++)
+    for (int i = 0; i < ligne; i++)
     {
-        for (int j = 0; j < col; j++)
+        for (int j = 0; j < colonne; j++)
         {
             arr[i][j] = 0;
         }
     }
 
     rewind(file);
-    //printf("row = %d; col = %d\n", row, col);
+    //printf("ligne = %d; colonne = %d\n", ligne, colonne);
 
-    for(int i=0; i < row; i++)
+    for(int i=0; i < ligne; i++)
     {
-        for(int j=0; j < col; j++)
+        for(int j=0; j < colonne; j++)
         {
             charFile = fgetc (file);
             if (charFile != ' ' && charFile != '\n')
@@ -163,14 +172,7 @@ void loadGrid()
         printf("\n");
     }
 }
-
-//=================================================================================================================
-
-
-
-
-
-
+*/
  /**====================================================================================================================
   *
   * \brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
@@ -202,9 +204,9 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
     int sink = SINKGRID;
     int miss = MISSGRID;
 
-    for (int i = 0; i <ligne ; ++i)
+    for (int i = 0; i < ligne ; ++i)
     {
-        for (int j = 0; j <colonne; ++j)
+        for (int j = 0; j < colonne; ++j)
         {
 
             if (grid[i][j] == vide)
@@ -277,7 +279,13 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
         return true;
     }
 }
+//=========================================================================
 
+
+
+
+
+//=========================================================================
 /**=====================================================================================================================
  *
  * \brief jeu - "Main" play function,
@@ -288,6 +296,9 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 void jeu()
 {
     bool QuitGame = false;
+    int gridChoice = 0;
+    int minGridChoice = 1;
+    int maxGridChoice = 5;
     emptyBuffer();
     //DIMENSION DE LA GRILLE
     //ligne
@@ -301,10 +312,63 @@ void jeu()
     int choiceNum = 0;
     //Player Grid View
     int grid[ligne][colonne];
+    //Generate a random number for grid selection
+    if (gridChoice == 0)
+    {
+        srand(time(0));
+        gridChoice = (rand() %(maxGridChoice - minGridChoice + 1)) + minGridChoice;
+        printf("GRID CHOSEN = %d\n", gridChoice);
+    }
+    //==========================================================================================================
+    //Charge Corresponding grid
+    //==========================================================================================================
+    FILE* file;
+    switch (gridChoice)
+    {
+        case 1:
+            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid1.txt", "r");
+            break;
+        case 2:
+            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid2.txt", "r");
+            break;
+        case 3:
+            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid3.txt", "r");
+            break;
+        case 4:
+            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid4.txt", "r");
+            break;
+        case 5:
+            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid5.txt", "r");
+            break;
+    }
+
+    char charFile;
+    int shipGrid[ligne-1][colonne-1];
+    rewind(file);
+    //printf("ligne = %d; colonne = %d\n", ligne, colonne);
+
+    for(int i=0; i < ligne-1; i++)
+    {
+        for(int j=0; j < colonne-1; j++)
+        {
+            charFile = fgetc (file);
+            if (charFile != ' ' && charFile != '\n')
+            {
+                shipGrid[i][j] = (int)charFile - 48; // see ASCII table
+                printf("%d", shipGrid[i][j]);
+
+            }
+            else
+            {
+                j -= 1;
+            }
+        }
+        printf("\n");
+    }
+    //==========================================================================================================
+
 
     //=================================================================
-    //Init Ship Grid
-    int shipGrid[ligne][colonne];
     /*
                1  2  3  4  5  6  7  8  9  10
     *
@@ -324,51 +388,30 @@ void jeu()
     bool victory = false;
     bool alphabetChecker = false;
     bool numChecker = false;
-    // Battleship
-    int pShip = 10; // 10 Define the Battleship on the grid
-    shipGrid[1][1] = pShip;
-    shipGrid[1][2] = pShip;
-    shipGrid[1][3] = pShip;
-    shipGrid[1][4] = pShip;
-    shipGrid[1][5] = pShip;
-    bool pShipSink = false;
-    //cruiser
-    int cShip = 11; // 11 Define the Cruiser on the grid
-    shipGrid[6][2] = cShip;
-    shipGrid[7][2] = cShip;
-    shipGrid[8][2] = cShip;
-    bool cShipSink = false;
-    //torpedo
-    int tShip = 12; // 12 Define the torpedo on the grid
-    shipGrid[8][6] = tShip;
-    shipGrid[9][6] = tShip;
-    bool tShipSink = false;
-    //Cruiser 2
-    int cShip2 = 13; // 13 Define the second cruider on the grid
-    shipGrid[4][4] = cShip2;
-    shipGrid[4][5] = cShip2;
-    shipGrid[4][6] = cShip2;
-    bool cShip2Sink = false;
 
-    int bShip = 14; // 14 Define the Second Cruiser on the grid
-    shipGrid[3][8] = bShip;
-    shipGrid[4][8] = bShip;
-    shipGrid[5][8] = bShip;
-    shipGrid[6][8] = bShip;
-    bool bShipSink = false;
+    int shipSunk = 0; // number represente the ship sunk
+    // Battleship
+    int ship5L = SHIP5L; // 10 Define the Battleship on the grid
+    int ship5LLife = 5;
+    bool ship5LSink = false;
+    //cruiser
+    int ship3L1 = SHIP3L1; // 11 Define the Cruiser on the grid
+    int ship3L1Life = 3;
+    bool ship3L1Sink = false;
+    //torpedo
+    int ship2L = SHIP2L; // 12 Define the torpedo on the grid
+    int ship2LLife = 2;
+    bool ship2LSink = false;
+    //Cruiser 2
+    int ship3L2 = SHIP3L2; // 13 Define the second cruider on the grid
+    int ship3L2Life = 3;
+    bool ship3L2Sink = false;
+
+    int ship4L = SHIP4L; // 14 Define the Second Cruiser on the grid
+    int ship4LLife = 4;
+    bool ship4LSink = false;
     //===============================================================================================================================================
-    // initialize the ship grid
-    for (int i = 0; i < ligne; ++i)
-    {
-        for (int j = 0; j < colonne; ++j)
-        {
-            if (shipGrid[i][j] != pShip && shipGrid[i][j] != cShip && shipGrid[i][j] != tShip && shipGrid[i][j] != cShip2 && shipGrid[i][j] != bShip)
-            {
-                shipGrid[i][j] = 0;
-            }
-        }
-    }
-    //===============================================================================================================================================
+
     //Initialize the player grid
 
     for(int a=0; a < ligne; a++)
@@ -470,65 +513,82 @@ void jeu()
                         int hit = HITGRID;
                         int miss = MISSGRID;
                         int sink = SINKGRID;
+                        int shipShoot = 0;
 
                         shotLigne = j;
-                        if (shipGrid[j][choiceNum] != 0 && shipGrid[shotLigne][choiceNum] != hit && grid[shotLigne][choiceNum] != hit && grid[shotLigne][choiceNum] != sink)
+                        //IL FAUT FAIRE -1 CAR LE GRID SHIP est plus petit!
+                        if (shipGrid[shotLigne-1][choiceNum-1] != 0 && shipGrid[shotLigne-1][choiceNum-1] != hit && grid[shotLigne][choiceNum] != hit && grid[shotLigne][choiceNum] != sink)
                         {
+                            //printf("Shigridu %d", shipGrid[shotLigne-1][choiceNum-1]);
                             //Indication for ship Hit
                             grid[shotLigne][choiceNum] = HITGRID;
-
+                            shipShoot = shipGrid[shotLigne-1][choiceNum-1];
+                            switch (shipShoot)
+                            {
+                                case SHIP5L:
+                                    ship5LLife -= 1;
+                                    if (ship5LLife <= 0)
+                                    {
+                                        shipSunk = SHIP5L;
+                                        ship5LSink = true;
+                                    }
+                                    break;
+                                case SHIP4L:
+                                    ship4LLife -= 1;
+                                    if (ship4LLife <= 0)
+                                    {
+                                        shipSunk = SHIP4L;
+                                        ship4LSink = true;
+                                    }
+                                    break;
+                                case SHIP3L2:
+                                    ship3L2Life -= 1;
+                                    if (ship3L2Life <= 0)
+                                    {
+                                        shipSunk = SHIP3L2;
+                                        ship3L2Sink = true;
+                                    }
+                                    break;
+                                case SHIP3L1:
+                                    ship3L1Life -= 1;
+                                    if (ship3L1Life <= 0)
+                                    {
+                                        shipSunk = SHIP3L1;
+                                        ship3L1Sink = true;
+                                    }
+                                    break;
+                                case SHIP2L:
+                                    ship2LLife -= 1;
+                                    if (ship2LLife <= 0)
+                                    {
+                                        shipSunk = SHIP2L;
+                                        ship2LSink = true;
+                                    }
+                                    break;
+                                default:
+                                    shipSunk = 0;
+                                    break;
+                            }
                             //==========================================================================================
                             /*
-                             * When Grid = 5 : Ship is Sink
+                             * Select which ship is sunk and modify the value on the grid
                              */
-                            //==========================================================================================
-                            if (grid[1][1] == hit && grid[1][2] == hit && grid[1][3] == hit && grid[1][4] == hit && grid[1][5] == hit)
+                            //=========================================================================================
+                            if(shipSunk != 0)
                             {
-                                grid[1][1] = SINKGRID;
-                                grid[1][2] = SINKGRID;
-                                grid[1][3] = SINKGRID;
-                                grid[1][4] = SINKGRID;
-                                grid[1][5] = SINKGRID;
-                                printf("\nTouché coulé!!!\n");
-                                pShipSink = true;
+                                for (int i = 0; i < ligne; ++i)
+                                {
+                                    for (int k = 0; k < colonne; ++k)
+                                    {
+                                        if(shipGrid[i][k] == shipSunk && grid[i+1][k+1] == HITGRID)
+                                        {
+                                            grid[i+1][k+1] = SINKGRID;
+                                        }
+                                    }
+                                }
+                                shipSunk = 0;
+                                printf("\nTouché coulé!\n");
                             }
-
-                            else if (grid[6][2] == hit && grid[7][2] == hit && grid[8][2] == hit)
-                            {
-                                grid[6][2] = SINKGRID;
-                                grid[7][2] = SINKGRID;
-                                grid[8][2] = SINKGRID;
-                                printf("\nTouché coulé!!!\n");
-                                cShipSink = true;
-                            }
-
-                            else if (grid[8][6] == hit && grid[9][6] == hit)
-                            {
-                                grid[8][6] = SINKGRID;
-                                grid[9][6] = SINKGRID;
-                                printf("\nTouché coulé!!!\n");
-                                tShipSink = true;
-                            }
-
-                            else if (grid[4][4] == hit && grid[4][5] == hit && grid[4][6] == hit)
-                            {
-                                grid[4][4] = SINKGRID;
-                                grid[4][5] = SINKGRID;
-                                grid[4][6] = SINKGRID;
-                                printf("\nTouché coulé!!!\n");
-                                cShip2Sink = true;
-                            }
-
-                            else if (grid[3][8] == hit && grid[4][8] == hit && grid[5][8] == hit && grid[6][8] == hit)
-                            {
-                                grid[3][8] = SINKGRID;
-                                grid[4][8] = SINKGRID;
-                                grid[5][8] = SINKGRID;
-                                grid[6][8] = SINKGRID;
-                                printf("\nTouché coulé!!!\n");
-                                bShipSink = true;
-                            }
-                            //==========================================================================================
                             else
                             {
                                 printf("\nTouché!\n");
@@ -556,7 +616,7 @@ void jeu()
                 numChecker = false;
             }
 
-            if (pShipSink == true && cShipSink == true && tShipSink == true && cShip2Sink == true && bShipSink == true)
+            if (ship5LSink == true && ship3L1Sink == true && ship2LSink == true && ship3L2Sink == true && ship4LSink == true)
             {
                 printf("\nVous avez gagné !\n");
                 printf("Retour au menu\n");
