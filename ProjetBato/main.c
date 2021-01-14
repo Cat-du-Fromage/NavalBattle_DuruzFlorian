@@ -54,7 +54,22 @@ void emptyBuffer()
     }
 }
 
+FILE* openFile(FILE* file, char* name, char* mode)
+{
+    file = NULL;
+    file = fopen(name, mode);
+    if(file == NULL)
+    {
+        printf("Could not open a file!\n");
+        exit(1);
+    }
+    else
+    {
+        printf("File was opened/created successfully!\n\n");
+    }
 
+    return file;
+}
 /**=====================================================================================================================
  *
  *\brief Aide, display the rules of the game and how we play it
@@ -91,25 +106,51 @@ void Aide()
     }
     modeEtat = 0;
 }
+//=====================================================================================================
+void scores()
+{
+    char quitAide = 'z';
+    char pseudo[] = "noname";
+    int score=0;
+    FILE* file;
+    file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\Scores.txt", "r");
+    while (!feof(file))
+    { /* check for end-of-file*/
+        fscanf(file, "%s:%d", &pseudo, &score);
+        printf("%s:%d\n", pseudo, score);
+        
+        //printf("%s:%d\n", pseudo, score);
+    }
+
+    while (modeEtat == 3 && quitAide != 'q')
+    {
+        int res = scanf("%c", &quitAide);
+        if (res == 0)
+        {
+            emptyBuffer();
+        }
+
+        if (quitAide == 'q')
+        {
+            fclose(file);
+            modeEtat = 0;
+        }
+    }
+    modeEtat = 0;
+}
+
+/*
+ while (!feof(input_file)) { /* check for end-of-file
+
+if(fscanf(input_file, "%d;%d;%s", &range_start, &range_end, range_name) != 3) {
+break; // Something weird happened on this line, so let's give up
+else {
+printf("I got the following numbers: %d, %d, %s\n", range_start, range_end, range_name);
+}
+}
+ */
 
 //=====================================================================================================
-
-FILE* openFile(FILE* file, char* name, char* mode)
-{
-    file = NULL;
-    file = fopen(name, mode);
-    if(file == NULL)
-    {
-        printf("Could not open a file!\n");
-        exit(1);
-    }
-    else
-    {
-        printf("File was opened/created successfully!\n\n");
-    }
-
-    return file;
-}
 
 /*
 void loadGrid()
@@ -281,7 +322,18 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 }
 //=========================================================================
 
+void scoreRegister(char pseudo[], int score)
+{
+    FILE* file;
+    file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\Scores.txt", "a+");
+    fputs(pseudo, file);
+    fputs(" ", file);
+    fprintf(file, "%d", score);
+    fputs("\n",file);
 
+
+    fclose (file);
+}
 
 
 
@@ -296,14 +348,14 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 void jeu()
 {
     bool QuitGame = false;
-    int gridChoice = 0;
-    int minGridChoice = 1;
-    int maxGridChoice = 5;
+    int score = 0;
+
+
     emptyBuffer();
-    //DIMENSION DE LA GRILLE
-    //ligne
+    //Size of the grid
+    //Row
     int ligne = 11;
-    //COLONNE
+    //column
     int colonne = 11;
 
     char alphabet[] = {'0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
@@ -314,7 +366,6 @@ void jeu()
     //Pseudo Part
     bool pseudoChoose = false;
     char pseudo[] = "noName";
-    int pseudoLength = strlen(pseudo);
     while (pseudoChoose == false)
     {
         printf("\nBienvenu dans la Bataille navale, Veuillez entrer un pseudo:\n");
@@ -328,6 +379,10 @@ void jeu()
     //Player Grid View
     int grid[ligne][colonne];
     //Generate a random number for grid selection
+    int gridChoice = 0;
+    //Adjust the number to the number of grid available
+    int minGridChoice = 1;
+    int maxGridChoice = 5;
     if (gridChoice == 0)
     {
         srand(time(0));
@@ -337,6 +392,7 @@ void jeu()
     //==========================================================================================================
     //Charge Corresponding grid
     //==========================================================================================================
+
     FILE* file;
     switch (gridChoice)
     {
@@ -479,6 +535,7 @@ void jeu()
                 else if (choiceAlpha == 'q')
                 {
                     fclose(file);
+                    scoreRegister(pseudo,score);
                     modeEtat = 0;
                     alphabetChecker = true;
                     numChecker = true;
@@ -674,6 +731,7 @@ int main()
     printf("\nBienvenu dans La bataille Navale");
     printf("\n1 : JOUER");
     printf("\n2 : AIDE DU JEU");
+    printf("\n3 : SCORES");
     printf("\n5 : QUITTER");
     printf("\nChoisissez le mode voulu parmis en entrant le chiffre correspondant ci-dessus.");
     printf("\nVotre Choix:");
@@ -686,6 +744,7 @@ int main()
             printf("\nBienvenu dans La bataille Navale");
             printf("\n1 : JOUER");
             printf("\n2 : AIDE DU JEU");
+            printf("\n3 : SCORES");
             printf("\n5 : QUITTER");
             printf("\nChoisissez le mode voulu parmis en entrant le chiffre correspondant ci-dessus.");
             printf("\nVotre Choix:");
@@ -704,16 +763,22 @@ int main()
                 modeEtat = 0;
                 choixMenu = 0;
                 break;
-            case 1: //Mode "Play"
+            case 1: //Play Mode
                 previousState = 1;
                 modeEtat = 1;
                 jeu();
                 choixMenu = 0;
                 break;
-            case 2://Mode "Help"
+            case 2://Help Mode
                 previousState = 2;
                 modeEtat = 2;
                 Aide();
+                choixMenu = 0;
+                break;
+            case 3://Score Mode
+                previousState = 2;
+                modeEtat = 3;
+                scores();
                 choixMenu = 0;
                 break;
             case 5:
