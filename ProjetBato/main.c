@@ -6,7 +6,7 @@
  * \brief     <this is "le Projet Bato" a naval battle>
  *
  =====================================================================================================================*/
-
+#include "sqlite3.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
@@ -70,6 +70,17 @@ FILE* openFile(FILE* file, char* name, char* mode)
 
     return file;
 }
+
+void dataStore()
+{
+    sqlite3 *db;
+    char *zErrMsg = 0;
+    int rc;
+    char *sql;
+
+    /* Open database */
+    rc = sqlite3_open("Scores.db", &db);
+}
 /**=====================================================================================================================
  *
  *\brief Aide, display the rules of the game and how we play it
@@ -109,6 +120,23 @@ void Aide()
 //=====================================================================================================
 void scores()
 {
+    sqlite3 *db;
+    char *zErrMsg = 0;
+    int rc;
+    char *sql;
+
+    /* Open database */
+    rc = sqlite3_open("Scores.db", &db);
+
+    if( rc )
+    {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+    }
+    else
+    {
+        fprintf(stdout, "Opened database successfully\n");
+    }
+
     char quitAide = 'z';
     char pseudo[] = "noname";
     int score=0;
@@ -118,7 +146,7 @@ void scores()
     { /* check for end-of-file*/
         fscanf(file, "%s:%d", &pseudo, &score);
         printf("%s:%d\n", pseudo, score);
-        
+
         //printf("%s:%d\n", pseudo, score);
     }
 
@@ -324,15 +352,55 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 
 void scoreRegister(char pseudo[], int score)
 {
+    /*
     FILE* file;
     file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\Scores.txt", "a+");
     fputs(pseudo, file);
     fputs(" ", file);
     fprintf(file, "%d", score);
     fputs("\n",file);
+*/
+    sqlite3 *db;
+    char *err_msg = 0;
+    int rc;
+    char *sql;
+    sqlite3_stmt* stmt;
+    /* Open database */
+    rc = sqlite3_open("Scores.sqlite", &db);
+    if( rc )
+    {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+    }
+    else
+    {
+        fprintf(stderr, "Opened database successfully\n");
+    }
+    /*
+    sql =       //"DROP TABLE IF EXISTS SCORES;"
+               // "CREATE TABLE SCORES(Id INT, Pseudo TEXT, Scores INT);"
+                "INSERT INTO SCORES VALUES(?, ?, ?);", (1, pseudo, score);
+    sqlite3_exec(db,"insert into SCORES (Id, Pseudo, Scores) values (?, ?, ?)",
+                 (1, pseudo, score), NULL, NULL);
+*/
 
+    sqlite3_prepare(db, "INSERT INTO SCORES(Pseudo,Scores) VALUES(?, ?)",-1,&stmt, NULL);
+    sqlite3_bind_text(stmt, 1, pseudo,NULL,NULL);
+    sqlite3_bind_int(stmt, 2, scores,NULL);
+    rc = sqlite3_exec(db, sql, 0, 0, &err_msg);
 
+    if( rc != SQLITE_OK )
+    {
+        fprintf(stderr, "SQL error: %s\n", err_msg);
+        sqlite3_free(err_msg);
+    }
+    else
+    {
+        fprintf(stdout, "Records created successfully\n");
+    }
+    sqlite3_close(db);
+/*
     fclose (file);
+    */
 }
 
 

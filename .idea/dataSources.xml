@@ -7,5 +7,16 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:Score.sqlite</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Scores" uuid="2dc69711-f4b8-4fb8-9c64-2c8fa110ab94">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\Scores.db</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
   </component>
 </project>

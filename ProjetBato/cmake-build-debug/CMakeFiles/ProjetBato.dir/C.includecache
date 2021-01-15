@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/main.c
+sqlite3.h
+P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h
 stdio.h
 -
 stdbool.h
@@ -20,5 +22,9 @@ windows.h
 time.h
 -
 string.h
+-
+
+P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h
+stdarg.h
 -
 

@@ -3,4 +3,5 @@ project(ProjetBato C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(ProjetBato main.c)
+add_executable(ProjetBato main.c sqlite3.c)
+

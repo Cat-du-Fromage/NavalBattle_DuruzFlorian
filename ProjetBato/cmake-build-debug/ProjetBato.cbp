@@ -77,6 +77,12 @@
 		<Unit filename="P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/main.c">
 			<Option target="ProjetBato"/>
 		</Unit>
+		<Unit filename="P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.c">
+			<Option target="ProjetBato"/>
+		</Unit>
+		<Unit filename="P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h">
+			<Option target="ProjetBato"/>
+		</Unit>
 		<Unit filename="P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

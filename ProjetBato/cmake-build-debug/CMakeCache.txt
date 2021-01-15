@@ -221,6 +221,9 @@ ProjetBato_BINARY_DIR:STATIC=P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFloria
 //Value Computed by CMake
 ProjetBato_SOURCE_DIR:STATIC=P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato
 
+//The directory containing a CMake configuration file for sqlite3.
+sqlite3_DIR:PATH=sqlite3_DIR-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries
