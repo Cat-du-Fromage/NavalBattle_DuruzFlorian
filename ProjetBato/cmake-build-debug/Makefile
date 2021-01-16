@@ -58,19 +58,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\CLion\CLion 2020.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "Z:\Programmes\Clion\Clion\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\CLion\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "Z:\Programmes\Clion\Clion\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato
+CMAKE_SOURCE_DIR = Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug
+CMAKE_BINARY_DIR = Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBa
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"C:\Program Files\CLion\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"Z:\Programmes\Clion\Clion\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -89,7 +89,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\CLion\CLion 2020.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"Z:\Programmes\Clion\Clion\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -99,9 +99,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target

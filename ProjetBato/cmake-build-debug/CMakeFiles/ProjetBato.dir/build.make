@@ -53,19 +53,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\CLion\CLion 2020.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "Z:\Programmes\Clion\Clion\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\CLion\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "Z:\Programmes\Clion\Clion\CLion 2020.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato
+CMAKE_SOURCE_DIR = Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug
+CMAKE_BINARY_DIR = Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ProjetBato.dir/depend.make
@@ -78,29 +78,29 @@ include CMakeFiles/ProjetBato.dir/flags.make
 
 CMakeFiles/ProjetBato.dir/main.c.obj: CMakeFiles/ProjetBato.dir/flags.make
 CMakeFiles/ProjetBato.dir/main.c.obj: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ProjetBato.dir/main.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjetBato.dir\main.c.obj   -c P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ProjetBato.dir/main.c.obj"
+	Z:\Programmes\Clion\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjetBato.dir\main.c.obj   -c Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\main.c
 
 CMakeFiles/ProjetBato.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjetBato.dir/main.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\main.c > CMakeFiles\ProjetBato.dir\main.c.i
+	Z:\Programmes\Clion\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\main.c > CMakeFiles\ProjetBato.dir\main.c.i
 
 CMakeFiles/ProjetBato.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjetBato.dir/main.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\main.c -o CMakeFiles\ProjetBato.dir\main.c.s
+	Z:\Programmes\Clion\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\main.c -o CMakeFiles\ProjetBato.dir\main.c.s
 
 CMakeFiles/ProjetBato.dir/sqlite3.c.obj: CMakeFiles/ProjetBato.dir/flags.make
 CMakeFiles/ProjetBato.dir/sqlite3.c.obj: ../sqlite3.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ProjetBato.dir/sqlite3.c.obj"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjetBato.dir\sqlite3.c.obj   -c P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\sqlite3.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ProjetBato.dir/sqlite3.c.obj"
+	Z:\Programmes\Clion\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\ProjetBato.dir\sqlite3.c.obj   -c Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\sqlite3.c
 
 CMakeFiles/ProjetBato.dir/sqlite3.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ProjetBato.dir/sqlite3.c.i"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\sqlite3.c > CMakeFiles\ProjetBato.dir\sqlite3.c.i
+	Z:\Programmes\Clion\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\sqlite3.c > CMakeFiles\ProjetBato.dir\sqlite3.c.i
 
 CMakeFiles/ProjetBato.dir/sqlite3.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ProjetBato.dir/sqlite3.c.s"
-	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\sqlite3.c -o CMakeFiles\ProjetBato.dir\sqlite3.c.s
+	Z:\Programmes\Clion\mingw32\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\sqlite3.c -o CMakeFiles\ProjetBato.dir\sqlite3.c.s
 
 # Object files for target ProjetBato
 ProjetBato_OBJECTS = \
@@ -116,7 +116,7 @@ ProjetBato.exe: CMakeFiles/ProjetBato.dir/build.make
 ProjetBato.exe: CMakeFiles/ProjetBato.dir/linklibs.rsp
 ProjetBato.exe: CMakeFiles/ProjetBato.dir/objects1.rsp
 ProjetBato.exe: CMakeFiles/ProjetBato.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable ProjetBato.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable ProjetBato.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ProjetBato.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -129,6 +129,6 @@ CMakeFiles/ProjetBato.dir/clean:
 .PHONY : CMakeFiles/ProjetBato.dir/clean
 
 CMakeFiles/ProjetBato.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug P:\FPA\MA20\ProjetBato_Ma20\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles\ProjetBato.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug Z:\CPNVProjet\SICa1a\Ma20\ProjetBateau\NavalBattle_DuruzFlorian\ProjetBato\cmake-build-debug\CMakeFiles\ProjetBato.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ProjetBato.dir/depend
 

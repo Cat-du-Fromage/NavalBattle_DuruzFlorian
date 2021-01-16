@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/main.c
+Z:/CPNVProjet/SICa1a/Ma20/ProjetBateau/NavalBattle_DuruzFlorian/ProjetBato/main.c
 sqlite3.h
-P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h
+Z:/CPNVProjet/SICa1a/Ma20/ProjetBateau/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h
 stdio.h
 -
 stdbool.h
@@ -24,7 +24,7 @@ time.h
 string.h
 -
 
-P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h
+Z:/CPNVProjet/SICa1a/Ma20/ProjetBateau/NavalBattle_DuruzFlorian/ProjetBato/sqlite3.h
 stdarg.h
 -
 

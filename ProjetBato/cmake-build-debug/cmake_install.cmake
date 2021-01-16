@@ -1,4 +1,4 @@
-# Install script for directory: P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato
+# Install script for directory: Z:/CPNVProjet/SICa1a/Ma20/ProjetBateau/NavalBattle_DuruzFlorian/ProjetBato
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "P:/FPA/MA20/ProjetBato_Ma20/NavalBattle_DuruzFlorian/ProjetBato/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "Z:/CPNVProjet/SICa1a/Ma20/ProjetBateau/NavalBattle_DuruzFlorian/ProjetBato/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

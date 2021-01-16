@@ -120,34 +120,17 @@ void Aide()
 //=====================================================================================================
 void scores()
 {
-    sqlite3 *db;
-    char *zErrMsg = 0;
-    int rc;
-    char *sql;
-
-    /* Open database */
-    rc = sqlite3_open("Scores.db", &db);
-
-    if( rc )
-    {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-    }
-    else
-    {
-        fprintf(stdout, "Opened database successfully\n");
-    }
-
     char quitAide = 'z';
-    char pseudo[] = "noname";
-    int score=0;
     FILE* file;
-    file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\Scores.txt", "r");
+    file = openFile(file,"Scores.txt", "r");
+
+    printf("\nScores des précédentes parties\n\n");
+
     while (!feof(file))
     { /* check for end-of-file*/
-        fscanf(file, "%s:%d", &pseudo, &score);
-        printf("%s:%d\n", pseudo, score);
+        int c = fgetc(file);
 
-        //printf("%s:%d\n", pseudo, score);
+        printf("%c", c);
     }
 
     while (modeEtat == 3 && quitAide != 'q')
@@ -156,6 +139,8 @@ void scores()
         if (res == 0)
         {
             emptyBuffer();
+            rewind(file);
+            fclose(file);
         }
 
         if (quitAide == 'q')
@@ -167,81 +152,8 @@ void scores()
     modeEtat = 0;
 }
 
-/*
- while (!feof(input_file)) { /* check for end-of-file
-
-if(fscanf(input_file, "%d;%d;%s", &range_start, &range_end, range_name) != 3) {
-break; // Something weird happened on this line, so let's give up
-else {
-printf("I got the following numbers: %d, %d, %s\n", range_start, range_end, range_name);
-}
-}
- */
 
 //=====================================================================================================
-
-/*
-void loadGrid()
-{
-    FILE* file;
-    file = openFile(file,"P:\\FPA\\MA20\\TestTXT\\testGrid2.txt", "r");
-
-    char charFile;
-    int temp, colonne = 0, ligne = 1;
-    int arr[ligne][colonne];
-    //calculating the no. of rows and columns in the text file
-    do
-    {
-        charFile = fgetc (file);
-        //printf("%c", charFile);
-        if((temp != 2) && (charFile == ' ' || charFile == '\n'))
-        {
-            colonne++;
-        }
-
-        if(charFile == '\n')
-        {
-            temp =2;
-            ligne++;
-        }
-    } while (charFile != EOF);
-
-    for (int i = 0; i < ligne; i++)
-    {
-        for (int j = 0; j < colonne; j++)
-        {
-            arr[i][j] = 0;
-        }
-    }
-
-    rewind(file);
-    //printf("ligne = %d; colonne = %d\n", ligne, colonne);
-
-    for(int i=0; i < ligne; i++)
-    {
-        for(int j=0; j < colonne; j++)
-        {
-            charFile = fgetc (file);
-            if (charFile != ' ' && charFile != '\n')
-            {
-                arr[i][j] = (int)charFile - 48; // see ASCII table
-                printf("%d", arr[i][j]);
-
-            }
-            else if (charFile == ' ')
-            {
-                printf(" ");
-                j -= 1;
-            }
-            else
-            {
-                j -= 1;
-            }
-        }
-        printf("\n");
-    }
-}
-*/
  /**====================================================================================================================
   *
   * \brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
@@ -352,55 +264,16 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
 
 void scoreRegister(char pseudo[], int score)
 {
-    /*
+
     FILE* file;
-    file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\Scores.txt", "a+");
+    file = openFile(file,"Scores.txt", "a+");
     fputs(pseudo, file);
-    fputs(" ", file);
+    fputs(" : ", file);
     fprintf(file, "%d", score);
     fputs("\n",file);
-*/
-    sqlite3 *db;
-    char *err_msg = 0;
-    int rc;
-    char *sql;
-    sqlite3_stmt* stmt;
-    /* Open database */
-    rc = sqlite3_open("Scores.sqlite", &db);
-    if( rc )
-    {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-    }
-    else
-    {
-        fprintf(stderr, "Opened database successfully\n");
-    }
-    /*
-    sql =       //"DROP TABLE IF EXISTS SCORES;"
-               // "CREATE TABLE SCORES(Id INT, Pseudo TEXT, Scores INT);"
-                "INSERT INTO SCORES VALUES(?, ?, ?);", (1, pseudo, score);
-    sqlite3_exec(db,"insert into SCORES (Id, Pseudo, Scores) values (?, ?, ?)",
-                 (1, pseudo, score), NULL, NULL);
-*/
 
-    sqlite3_prepare(db, "INSERT INTO SCORES(Pseudo,Scores) VALUES(?, ?)",-1,&stmt, NULL);
-    sqlite3_bind_text(stmt, 1, pseudo,NULL,NULL);
-    sqlite3_bind_int(stmt, 2, scores,NULL);
-    rc = sqlite3_exec(db, sql, 0, 0, &err_msg);
-
-    if( rc != SQLITE_OK )
-    {
-        fprintf(stderr, "SQL error: %s\n", err_msg);
-        sqlite3_free(err_msg);
-    }
-    else
-    {
-        fprintf(stdout, "Records created successfully\n");
-    }
-    sqlite3_close(db);
-/*
     fclose (file);
-    */
+
 }
 
 
@@ -416,7 +289,7 @@ void scoreRegister(char pseudo[], int score)
 void jeu()
 {
     bool QuitGame = false;
-    int score = 0;
+    int score = 100;
 
 
     emptyBuffer();
@@ -430,10 +303,13 @@ void jeu()
 
     char choiceAlpha = 'z';
     int choiceNum = 0;
-
-    //Pseudo Part
+    //Player Grid View
+    int grid[ligne][colonne];
+    //==========================================================================================================
+    //Pseudo entry Part
+    //==========================================================================================================
     bool pseudoChoose = false;
-    char pseudo[] = "noName";
+    char pseudo[10];
     while (pseudoChoose == false)
     {
         printf("\nBienvenu dans la Bataille navale, Veuillez entrer un pseudo:\n");
@@ -442,11 +318,9 @@ void jeu()
         emptyBuffer();
         pseudoChoose = true;
     }
-
-
-    //Player Grid View
-    int grid[ligne][colonne];
-    //Generate a random number for grid selection
+    //==========================================================================================================
+    //Generate random number
+    //==========================================================================================================
     int gridChoice = 0;
     //Adjust the number to the number of grid available
     int minGridChoice = 1;
@@ -465,26 +339,25 @@ void jeu()
     switch (gridChoice)
     {
         case 1:
-            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid1.txt", "r");
+            file = openFile(file,"GameGrid\\Grid1.txt", "r");
             break;
         case 2:
-            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid2.txt", "r");
+            file = openFile(file,"GameGrid\\Grid2.txt", "r");
             break;
         case 3:
-            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid3.txt", "r");
+            file = openFile(file,"GameGrid\\Grid3.txt", "r");
             break;
         case 4:
-            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid4.txt", "r");
+            file = openFile(file,"GameGrid\\Grid4.txt", "r");
             break;
         case 5:
-            file = openFile(file,"P:\\FPA\\MA20\\ProjetBato_Ma20\\NavalBattle_DuruzFlorian\\ProjetBato\\GameGrid\\Grid5.txt", "r");
+            file = openFile(file,"GameGrid\\Grid5.txt", "r");
             break;
     }
 
     char charFile;
     int shipGrid[ligne-1][colonne-1];
     rewind(file);
-    //printf("ligne = %d; colonne = %d\n", ligne, colonne);
 
     for(int i=0; i < ligne-1; i++)
     {
@@ -553,6 +426,7 @@ void jeu()
 
     //Initialize the player grid
 
+    //===============================================================================================================================================
     for(int a=0; a < ligne; a++)
     {
         for(int b=0; b < colonne; b++)
@@ -660,7 +534,6 @@ void jeu()
                         //IL FAUT FAIRE -1 CAR LE GRID SHIP est plus petit!
                         if (shipGrid[shotLigne-1][choiceNum-1] != 0 && shipGrid[shotLigne-1][choiceNum-1] != hit && grid[shotLigne][choiceNum] != hit && grid[shotLigne][choiceNum] != sink)
                         {
-                            //printf("Shigridu %d", shipGrid[shotLigne-1][choiceNum-1]);
                             //Indication for ship Hit
                             grid[shotLigne][choiceNum] = HITGRID;
                             shipShoot = shipGrid[shotLigne-1][choiceNum-1];
@@ -724,6 +597,7 @@ void jeu()
                                         if(shipGrid[i][k] == shipSunk && grid[i+1][k+1] == HITGRID)
                                         {
                                             grid[i+1][k+1] = SINKGRID;
+                                            score += 1; // +1 point per ship case
                                         }
                                     }
                                 }
@@ -746,6 +620,7 @@ void jeu()
                             // 6 Define a Miss Hit in the Grid
                             grid[shotLigne][choiceNum] = MISSGRID;
                             updateGrid(ligne, colonne, grid);
+                            score -= 1;
                             printf("\nRaté!");
                         }
                         printf("\nChoisissez la case a abattre:");
@@ -760,6 +635,7 @@ void jeu()
             if (ship5LSink == true && ship3L1Sink == true && ship2LSink == true && ship3L2Sink == true && ship4LSink == true)
             {
                 printf("\nVous avez gagné !\n");
+                printf("\nvotre score : %d\n", score);
                 printf("Retour au menu\n");
                 victory = true;
                 fclose(file);
