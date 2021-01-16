@@ -71,15 +71,45 @@ FILE* openFile(FILE* file, char* name, char* mode)
     return file;
 }
 
-void dataStore()
+FILE* randomFile()
 {
-    sqlite3 *db;
-    char *zErrMsg = 0;
-    int rc;
-    char *sql;
+    //==========================================================================================================
+    //Generate random number
+    //==========================================================================================================
+    int gridChoice = 0;
+    //Adjust the number to the number of grid available
+    int minGridChoice = 1;
+    int maxGridChoice = 5;
+    if (gridChoice == 0)
+    {
+        srand(time(0));
+        gridChoice = (rand() %(maxGridChoice - minGridChoice + 1)) + minGridChoice;
+        printf("GRID CHOSEN = %d\n", gridChoice);
+    }
+    //==========================================================================================================
+    //Charge Corresponding grid
+    //==========================================================================================================
 
-    /* Open database */
-    rc = sqlite3_open("Scores.db", &db);
+    FILE* file;
+    switch (gridChoice)
+    {
+        case 1:
+            file = openFile(file,"GameGrid\\Grid1.txt", "r");
+            break;
+        case 2:
+            file = openFile(file,"GameGrid\\Grid2.txt", "r");
+            break;
+        case 3:
+            file = openFile(file,"GameGrid\\Grid3.txt", "r");
+            break;
+        case 4:
+            file = openFile(file,"GameGrid\\Grid4.txt", "r");
+            break;
+        case 5:
+            file = openFile(file,"GameGrid\\Grid5.txt", "r");
+            break;
+    }
+    return file;
 }
 /**=====================================================================================================================
  *
@@ -318,43 +348,8 @@ void jeu()
         emptyBuffer();
         pseudoChoose = true;
     }
-    //==========================================================================================================
-    //Generate random number
-    //==========================================================================================================
-    int gridChoice = 0;
-    //Adjust the number to the number of grid available
-    int minGridChoice = 1;
-    int maxGridChoice = 5;
-    if (gridChoice == 0)
-    {
-        srand(time(0));
-        gridChoice = (rand() %(maxGridChoice - minGridChoice + 1)) + minGridChoice;
-        printf("GRID CHOSEN = %d\n", gridChoice);
-    }
-    //==========================================================================================================
-    //Charge Corresponding grid
-    //==========================================================================================================
-
-    FILE* file;
-    switch (gridChoice)
-    {
-        case 1:
-            file = openFile(file,"GameGrid\\Grid1.txt", "r");
-            break;
-        case 2:
-            file = openFile(file,"GameGrid\\Grid2.txt", "r");
-            break;
-        case 3:
-            file = openFile(file,"GameGrid\\Grid3.txt", "r");
-            break;
-        case 4:
-            file = openFile(file,"GameGrid\\Grid4.txt", "r");
-            break;
-        case 5:
-            file = openFile(file,"GameGrid\\Grid5.txt", "r");
-            break;
-    }
-
+    //Choose a random grid
+    FILE* file = randomFile();
     char charFile;
     int shipGrid[ligne-1][colonne-1];
     rewind(file);
