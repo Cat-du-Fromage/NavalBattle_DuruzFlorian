@@ -677,7 +677,6 @@ void jeu()
 
 int main()
 {
-    setbuf(stdout,0);
     SetConsoleOutputCP(65001);
     /*===========================
 
