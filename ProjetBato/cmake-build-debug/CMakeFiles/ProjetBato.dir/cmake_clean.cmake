@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ProjetBato.dir/main.c.obj"
-  "CMakeFiles/ProjetBato.dir/sqlite3.c.obj"
   "ProjetBato.exe"
   "ProjetBato.exe.manifest"
   "ProjetBato.pdb"

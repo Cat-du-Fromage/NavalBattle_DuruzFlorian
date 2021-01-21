@@ -1,0 +1,23 @@
+
+Main:MenuChoice : 1 
+Jeu : Entering Jeu 
+Jeu:Pseudo : florian 
+openFile : File was opened/created successfully! 
+randomFile : GRID CHOSEN = 4 
+updateGrid : Grid Updated 
+openFile : File was opened/created successfully! 
+scoreRegister : success 
+Jeu:quitter : Quitte le jeu 
+Main:MenuChoice : 3 
+Scores : Entering scores 
+openFile : File was opened/created successfully! 
+Main:MenuChoice : 3 
+Scores : Entering scores 
+openFile : File was opened/created successfully! 
+Main:MenuChoice : 3 
+Scores : Entering scores 
+openFile : File was opened/created successfully! 
+Main:MenuChoice : 3 
+Scores : Entering scores 
+openFile : File was opened/created successfully! 
+Main:MenuChoice : 5 

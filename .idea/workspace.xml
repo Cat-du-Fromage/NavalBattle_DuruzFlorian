@@ -40,7 +40,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="C:/MinGW/include/sys" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="database.main" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -48,19 +48,14 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ProjetBato" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ProjetBato" TARGET_NAME="ProjetBato" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ProjetBato" RUN_TARGET_NAME="ProjetBato">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -93,6 +88,15 @@
       <workItem from="1610609722926" duration="19425000" />
       <workItem from="1610694171122" duration="569000" />
       <workItem from="1610694752393" duration="4924000" />
+      <workItem from="1610953813295" duration="4593000" />
+      <workItem from="1610973461138" duration="2000" />
+      <workItem from="1610974598271" duration="2000" />
+      <workItem from="1611041076733" duration="599000" />
+      <workItem from="1611055959714" duration="2000" />
+      <workItem from="1611145851336" duration="16000" />
+      <workItem from="1611149511582" duration="12000" />
+      <workItem from="1611221001394" duration="201000" />
+      <workItem from="1611232290253" duration="3999000" />
     </task>
     <servers />
   </component>
@@ -108,22 +112,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1220" y="263" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610622446844" />
-    <state width="1877" height="205" key="GridCell.Tab.0.bottom" timestamp="1610698773372">
+    <state width="1877" height="205" key="GridCell.Tab.0.bottom" timestamp="1611236268346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610698773372" />
-    <state width="1877" height="205" key="GridCell.Tab.0.center" timestamp="1610698773372">
+    <state width="1877" height="205" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611236268346" />
+    <state width="1877" height="205" key="GridCell.Tab.0.center" timestamp="1611236268346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610698773372" />
-    <state width="1877" height="205" key="GridCell.Tab.0.left" timestamp="1610698773372">
+    <state width="1877" height="205" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611236268346" />
+    <state width="1877" height="205" key="GridCell.Tab.0.left" timestamp="1611236268346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610698773372" />
-    <state width="1877" height="205" key="GridCell.Tab.0.right" timestamp="1610698773372">
+    <state width="1877" height="205" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611236268346" />
+    <state width="1877" height="205" key="GridCell.Tab.0.right" timestamp="1611236268346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610698773372" />
+    <state width="1877" height="205" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611236268346" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1610636122921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -140,10 +144,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610636122921" />
-    <state x="686" y="138" key="SettingsEditor" timestamp="1610697545038">
+    <state x="686" y="138" key="SettingsEditor" timestamp="1610954419181">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="686" y="138" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1610697545038" />
+    <state x="686" y="138" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1610954419181" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1607609309670">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

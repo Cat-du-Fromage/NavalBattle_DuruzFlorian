@@ -6,7 +6,6 @@
  * \brief     <this is "le Projet Bato" a naval battle>
  *
  =====================================================================================================================*/
-#include "sqlite3.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
@@ -43,8 +42,6 @@ int modeEtat = 0;
  * \brief emptyBuffer, use after a scanf function to clear the stored value
  *
  =====================================================================================================================*/
-
-
 void emptyBuffer()
 {
     int c = 0;
@@ -53,24 +50,50 @@ void emptyBuffer()
         c = getchar();
     }
 }
+/**=====================================================================================================================
+ * @brief logSystem - log an event
+ * @param logType - function where the log appear
+ * @param logMessage - simply what happend there
+ =====================================================================================================================*/
+void logSystem(char logType[], char logMessage[])
+{
+    FILE* file;
+    file = fopen("Log\\Log.txt", "a+");
 
+    fputs(logType, file);
+    fputs(" : ", file);
+    fputs(logMessage, file);
+    fputs(" ", file);
+    fputs("\n", file);
+
+    fclose(file);
+}
+/**=====================================================================================================================
+ * @Brief openFile - open or create a txt or report an error if something wrong happened
+ * @param file
+ * @param name
+ * @param mode
+ * @return FILE
+ =====================================================================================================================*/
 FILE* openFile(FILE* file, char* name, char* mode)
 {
     file = NULL;
     file = fopen(name, mode);
     if(file == NULL)
     {
-        printf("Could not open a file!\n");
-        exit(1);
+        logSystem("openFile","Could not open a file!");
     }
     else
     {
-        printf("File was opened/created successfully!\n\n");
+        logSystem("openFile","File was opened/created successfully!");
     }
 
     return file;
 }
-
+/**=====================================================================================================================
+ * @brief randomFile - Generate a random number then the corresponding grid
+ * @return FILE
+ =====================================================================================================================*/
 FILE* randomFile()
 {
     //==========================================================================================================
@@ -84,7 +107,6 @@ FILE* randomFile()
     {
         srand(time(0));
         gridChoice = (rand() %(maxGridChoice - minGridChoice + 1)) + minGridChoice;
-        printf("GRID CHOSEN = %d\n", gridChoice);
     }
     //==========================================================================================================
     //Charge Corresponding grid
@@ -95,18 +117,26 @@ FILE* randomFile()
     {
         case 1:
             file = openFile(file,"GameGrid\\Grid1.txt", "r");
+            logSystem("randomFile","GRID CHOSEN = 1");
             break;
         case 2:
             file = openFile(file,"GameGrid\\Grid2.txt", "r");
+            logSystem("randomFile","GRID CHOSEN = 2");
             break;
         case 3:
             file = openFile(file,"GameGrid\\Grid3.txt", "r");
+            logSystem("randomFile","GRID CHOSEN = 3");
             break;
         case 4:
             file = openFile(file,"GameGrid\\Grid4.txt", "r");
+            logSystem("randomFile","GRID CHOSEN = 4");
             break;
         case 5:
             file = openFile(file,"GameGrid\\Grid5.txt", "r");
+            logSystem("randomFile","GRID CHOSEN = 5");
+            break;
+        default:
+            logSystem("randomFile","ERROR no grid chosen");
             break;
     }
     return file;
@@ -123,7 +153,9 @@ void Aide()
 
     printf("\nAide du jeu : Bataille Navale\n");
     printf("\nBienvenu dans la bataille navale,\nLe principe est simple, séléctionnez la case de votre choix pour tirer sur un bateau,");
-    printf("\nPour gagner il vous faudra abattre les 5 bateaux en jeu.\n");
+    printf("\nPour gagner il vous faudra abattre les 5 bateaux en jeu.");
+    printf("\nVous démarrez avec 100 points, chaque tir raté vous en fait perdre 1 (tiré sur la même case ne fait pas perdre de point)");
+    printf("\nVous récupérez des points en coulant des bateaux\n");
     printf("\nListe des indicateurs sur la grille du jeu");
     printf("\n~ : Case vierge");
     printf("\n0 : Tir manqué");
@@ -147,9 +179,15 @@ void Aide()
     }
     modeEtat = 0;
 }
-//=====================================================================================================
+
+/**====================================================================================================================
+ *
+ * @brief scores - Display scores from the last games
+ *
+ ====================================================================================================================*/
 void scores()
 {
+    logSystem("Scores","Entering scores");
     char quitAide = 'z';
     FILE* file;
     file = openFile(file,"Scores.txt", "r");
@@ -162,7 +200,7 @@ void scores()
 
         printf("%c", c);
     }
-
+    printf("\nPressez <q> pour quitter:");
     while (modeEtat == 3 && quitAide != 'q')
     {
         int res = scanf("%c", &quitAide);
@@ -183,7 +221,6 @@ void scores()
 }
 
 
-//=====================================================================================================
  /**====================================================================================================================
   *
   * \brief updateGrid - update the grid depending of the coordinate (ligne, colonne) and display it
@@ -255,6 +292,7 @@ void updateGrid(int ligne, int colonne,int grid[ligne][colonne])
         }
         putchar('\n');
     }
+    logSystem("updateGrid", "Grid Updated");
 }
 
 /**=====================================================================================================================
@@ -290,25 +328,23 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
         return true;
     }
 }
-//=========================================================================
-
+/**=====================================================================================================================
+ * @brief scoreRegister - write in a txt the pseudo and the score
+ * @param pseudo
+ * @param score
+ =====================================================================================================================*/
 void scoreRegister(char pseudo[], int score)
 {
-
     FILE* file;
     file = openFile(file,"Scores.txt", "a+");
     fputs(pseudo, file);
     fputs(" : ", file);
     fprintf(file, "%d", score);
     fputs("\n",file);
-
+    logSystem("scoreRegister","success");
     fclose (file);
 
 }
-
-
-
-//=========================================================================
 /**=====================================================================================================================
  *
  * \brief jeu - "Main" play function,
@@ -318,6 +354,7 @@ void scoreRegister(char pseudo[], int score)
 
 void jeu()
 {
+    logSystem("Jeu","Entering Jeu");
     bool QuitGame = false;
     int score = 100;
 
@@ -344,7 +381,7 @@ void jeu()
     {
         printf("\nBienvenu dans la Bataille navale, Veuillez entrer un pseudo:\n");
         scanf("%s", &pseudo);
-        printf("\nVotre pseudo est %s\n", pseudo);
+        logSystem("Jeu:Pseudo",pseudo);
         emptyBuffer();
         pseudoChoose = true;
     }
@@ -353,7 +390,7 @@ void jeu()
     char charFile;
     int shipGrid[ligne-1][colonne-1];
     rewind(file);
-
+    //Initialize the ship grid
     for(int i=0; i < ligne-1; i++)
     {
         for(int j=0; j < colonne-1; j++)
@@ -362,59 +399,33 @@ void jeu()
             if (charFile != ' ' && charFile != '\n')
             {
                 shipGrid[i][j] = (int)charFile - 48; // see ASCII table
-                printf("%d", shipGrid[i][j]);
-
             }
             else
             {
                 j -= 1; // "\n" on the file
             }
         }
-        printf("\n");
     }
     //==========================================================================================================
-
-
-    //=================================================================
-    /*
-               1  2  3  4  5  6  7  8  9  10
-    *
-    *   a(1)   p  p  p  p  p  -  -  -  -  -
-    *   b(2)   -  -  -  -  -  -  -  -  -  -
-    *   c(3)   -  -  -  -  -  -  -  c  -  -
-    *   d(4)   -  -  -  s  s  s  -  c  -  -
-    *   e(5)   -  -  -  -  -  -  -  c  -  -
-    *   f(6)   -  s  -  -  -  -  -  c  -  -
-    *   g(7)   -  s  -  -  -  -  -  -  -  -
-    *   h(8)   -  s  -  -  -  t  -  -  -  -
-    *   i(9)   -  -  -  -  -  t  -  -  -  -
-    *   j(10)  -  -  -  -  -  -  -  -  -  -
-    */
-
 
     bool victory = false;
     bool alphabetChecker = false;
     bool numChecker = false;
 
     int shipSunk = 0; // number represente the ship sunk
-    // Battleship
-    int ship5L = SHIP5L; // "5" on the grid
+    // ship5L = SHIP5L
     int ship5LLife = 5;
     bool ship5LSink = false;
-    //cruiser
-    int ship3L1 = SHIP3L1; // "2" on the grid
+    // ship3L1 = SHIP3L1
     int ship3L1Life = 3;
     bool ship3L1Sink = false;
-    //torpedo
-    int ship2L = SHIP2L; // "1" on the grid
+    // ship2L = SHIP2L
     int ship2LLife = 2;
     bool ship2LSink = false;
-    //Cruiser 2
-    int ship3L2 = SHIP3L2; // "3" on the grid
+    //ship3L2 = SHIP3L2
     int ship3L2Life = 3;
     bool ship3L2Sink = false;
-
-    int ship4L = SHIP4L; // "4" on the grid
+    //ship4L = SHIP4L
     int ship4LLife = 4;
     bool ship4LSink = false;
     //===============================================================================================================================================
@@ -473,6 +484,7 @@ void jeu()
                 {
                     fclose(file);
                     scoreRegister(pseudo,score);
+                    logSystem("Jeu:quitter", "Quitte le jeu");
                     modeEtat = 0;
                     alphabetChecker = true;
                     numChecker = true;
@@ -480,17 +492,18 @@ void jeu()
                 else
                 {
                     //Check if the choice is between A-J
-
                     if (alphabetEntryChecker(choiceAlpha,alphabet,ligne) == true)
                     {
                         emptyBuffer();
                         printf("\nVeuillez choisir un chiffre entre <1> et <10>");
                         alphabetChecker = true;
+                        logSystem("Jeu:ChoixAlphabete", "Valide");
                     }
                     else
                     {
                         emptyBuffer();
                         printf("\nChoix non valide, Veuillez choisir une lettre entre <a> et <j>");
+                        logSystem("Jeu:ChoixAlphabete", "NON Valide");
                     }
                 }
             }
@@ -505,11 +518,13 @@ void jeu()
                 else if (choiceNum > 0 && choiceNum < 11)
                 {
                     numChecker = true;
+                    logSystem("Jeu:Choix nombre", "Valide");
                 }
                 else
                 {
                     emptyBuffer();
                     printf("\nChoix non valide, Veuillez choisir un chiffre entre <1> et <10>");
+                    logSystem("Jeu:Choix nombre", "NON Valide");
                 }
             }
             if(numChecker == true && alphabetChecker == true)
@@ -593,6 +608,7 @@ void jeu()
                                         {
                                             grid[i+1][k+1] = SINKGRID;
                                             score += 1; // +1 point per ship case
+                                            logSystem("Jeu:Tir", "bateau coule");
                                         }
                                     }
                                 }
@@ -602,6 +618,7 @@ void jeu()
                             else
                             {
                                 printf("\nTouché!\n");
+                                logSystem("Jeu:Tir", "bateau touche");
                             }
 
                             updateGrid(ligne, colonne, grid);
@@ -632,6 +649,7 @@ void jeu()
                 printf("\nVous avez gagné !\n");
                 printf("\nvotre score : %d\n", score);
                 printf("Retour au menu\n");
+                logSystem("Jeu:Endgame", "Victoire");
                 victory = true;
                 fclose(file);
                 modeEtat = 0;
@@ -664,16 +682,7 @@ int main()
 
     ===========================*/
     int choixMenu = 0;
-    int previousState = 0; // mechanical button to avoid the menu to display twice when coming back from the game
-
-
-    printf("\nBienvenu dans La bataille Navale");
-    printf("\n1 : JOUER");
-    printf("\n2 : AIDE DU JEU");
-    printf("\n3 : SCORES");
-    printf("\n5 : QUITTER");
-    printf("\nChoisissez le mode voulu parmis en entrant le chiffre correspondant ci-dessus.");
-    printf("\nVotre Choix:");
+    int previousState = 1; // mechanical button to avoid the menu to display twice when coming back from the game
 
     while (modeEtat == 0 && choixMenu == 0)
     {
@@ -701,30 +710,36 @@ int main()
                 previousState = 0;
                 modeEtat = 0;
                 choixMenu = 0;
+                logSystem("Main:MenuChoice","0");
                 break;
             case 1: //Play Mode
                 previousState = 1;
                 modeEtat = 1;
+                logSystem("Main:MenuChoice","1");
                 jeu();
                 choixMenu = 0;
                 break;
             case 2://Help Mode
                 previousState = 2;
                 modeEtat = 2;
+                logSystem("Main:MenuChoice","2");
                 Aide();
                 choixMenu = 0;
                 break;
             case 3://Score Mode
                 previousState = 2;
                 modeEtat = 3;
+                logSystem("Main:MenuChoice","3");
                 scores();
                 choixMenu = 0;
                 break;
             case 5:
+                logSystem("Main:MenuChoice","5");
                 printf("Bye!");
                 return 1;
             default:// mode "Main Menu
                 modeEtat = 0;
+                logSystem("Main:MenuChoice","??");
                 choixMenu = 0;
                 break;
         }
