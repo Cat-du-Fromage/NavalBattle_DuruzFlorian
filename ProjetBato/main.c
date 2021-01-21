@@ -51,9 +51,11 @@ void emptyBuffer()
     }
 }
 /**=====================================================================================================================
+ *
  * @brief logSystem - log an event
  * @param logType - function where the log appear
- * @param logMessage - simply what happend there
+ * @param logMessage - simply what happen there
+ *
  =====================================================================================================================*/
 void logSystem(char logType[], char logMessage[])
 {
@@ -69,11 +71,13 @@ void logSystem(char logType[], char logMessage[])
     fclose(file);
 }
 /**=====================================================================================================================
+ *
  * @Brief openFile - open or create a txt or report an error if something wrong happened
  * @param file
  * @param name
  * @param mode
  * @return FILE
+ *
  =====================================================================================================================*/
 FILE* openFile(FILE* file, char* name, char* mode)
 {
@@ -91,8 +95,10 @@ FILE* openFile(FILE* file, char* name, char* mode)
     return file;
 }
 /**=====================================================================================================================
+ *
  * @brief randomFile - Generate a random number then the corresponding grid
  * @return FILE
+ *
  =====================================================================================================================*/
 FILE* randomFile()
 {
@@ -329,9 +335,11 @@ bool alphabetEntryChecker(char choiceAlpha,char alphabet[], int ligne)
     }
 }
 /**=====================================================================================================================
+ *
  * @brief scoreRegister - write in a txt the pseudo and the score
  * @param pseudo
  * @param score
+ *
  =====================================================================================================================*/
 void scoreRegister(char pseudo[], int score)
 {
